@@ -17,10 +17,10 @@
 <meta property="og:title" content="Flourish or Flounder — Cate Hulme, Fractional CFO">
 <meta property="og:description" content="Straight-talking financial advice for founders who want to actually understand their numbers and what to do next.">
 <meta property="og:url" content="https://flourishorflounder.co.uk/">
+<meta property="og:image" content="https://flourishorflounder.co.uk/logo.png">
 <meta property="og:locale" content="en_GB">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="theme-color" content="#FFFFFF">
-<meta property="og:image" content="https://flourishorflounder.co.uk/logo.png">
 
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="icon" type="image/png" href="/favicon.png">
@@ -28,40 +28,49 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,300;1,9..144,400;1,9..144,500&family=Inter:wght@400;500;600;700&family=Oswald:wght@500;600;700&display=swap" rel="stylesheet">
 
 <style>
-/* ------------------------------------------------------------------
-   FLOURISH OR FLOUNDER — single-file site
-   Palette, type scale and spacing are all defined as variables here.
-   Change a value once and it updates everywhere.
------------------------------------------------------------------- */
+/* ==================================================================
+   FLOURISH OR FLOUNDER
+   Everything the site needs lives in this one file.
+   Palette, type and spacing are variables — change one here and it
+   updates everywhere on the page.
+================================================================== */
 :root{
-  /* Brand palette — sampled directly from the logo.
-     --pink is the vivid logo pink, used for graphics and large display type.
-     --pink-deep is a darkened version used anywhere the text is small, so it
-     stays above the WCAG AA contrast threshold. */
-  --cream:#FFFFFF;        /* page background — white, matching the logo */
-  --sand:#FBF5F7;         /* alternating section tint, a whisper of pink */
+  /* Brand palette, sampled from the logo.
+     --pink is the vivid logo pink: used for graphics and LARGE type.
+     --pink-deep is darkened for small text, to stay above the WCAG AA
+     contrast threshold. Same idea for the greens. */
+  --white:#FFFFFF;
+  --sand:#FDF4F8;          /* pink-tinted alternating section */
   --ink:#16141A;
   --ink-soft:#3A3640;
   --muted:#6B6672;
+
   --pink:#DE2D75;
   --pink-deep:#B01B5B;
   --pink-wash:#FCE4EF;
+  --pink-light:#FF8FBB;      /* accents on the dark section */
+  --pink-on-green:#FFA8CB;   /* lifted so it clears 3:1 on the green ground */
+
   --green:#45A90B;
   --green-deep:#357F08;
+  --green-dark:#2E6F08;    /* full-section ground, 6.2:1 against white */
   --green-wash:#EAF7E0;
-  --line:#E4DDE2;
-  --line-soft:#EFE9ED;
+
+  --line:#E9E1E6;
+  --line-soft:#F1EBEE;
 
   --font-display:"Fraunces","Iowan Old Style","Palatino Linotype",Georgia,serif;
   --font-body:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  --font-chunk:"Oswald","Haettenschweiler","Arial Narrow",sans-serif;  /* the logo's voice */
+  --font-numeral:"Anton","Oswald","Arial Black",sans-serif;
 
-  --container:1160px;
+  --container:1180px;
   --gutter:clamp(1.25rem,5vw,4rem);
   --section-y:clamp(4.5rem,10vw,8.5rem);
-  --radius:14px;
+  --radius:16px;
 }
 
 *,*::before,*::after{box-sizing:border-box}
@@ -70,7 +79,7 @@ html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
 
 body{
   margin:0;
-  background:var(--cream);
+  background:var(--white);
   color:var(--ink);
   font-family:var(--font-body);
   font-size:clamp(1.02rem,.35vw + .96rem,1.14rem);
@@ -80,47 +89,47 @@ body{
 }
 
 img{max-width:100%;display:block}
-
-h1,h2,h3{
-  font-family:var(--font-display);
-  font-weight:500;
-  line-height:1.08;
-  letter-spacing:-.02em;
-  margin:0;
-  text-wrap:balance;
-}
-
 a{color:inherit}
 p{margin:0 0 1.15em}
 p:last-child{margin-bottom:0}
 
-::selection{background:var(--pink);color:#fff}
-
-:focus-visible{
-  outline:2.5px solid var(--pink);
-  outline-offset:3px;
-  border-radius:3px;
+h1,h2,h3{
+  font-family:var(--font-display);
+  font-weight:500;line-height:1.08;letter-spacing:-.02em;
+  margin:0;text-wrap:balance;
 }
 
+::selection{background:var(--pink);color:#fff}
+:focus-visible{outline:2.5px solid var(--pink);outline-offset:3px;border-radius:3px}
+
 .container{
-  width:100%;
-  max-width:var(--container);
-  margin-inline:auto;
-  padding-inline:var(--gutter);
+  width:100%;max-width:var(--container);
+  margin-inline:auto;padding-inline:var(--gutter);
+  position:relative;z-index:1;
 }
 
 .skip{
-  position:absolute;left:-9999px;top:0;
-  background:var(--ink);color:var(--cream);
-  padding:.85rem 1.35rem;z-index:200;border-radius:0 0 8px 0;
-  font-weight:600;font-size:.92rem;
+  position:absolute;left:-9999px;top:0;z-index:300;
+  background:var(--ink);color:#fff;padding:.85rem 1.35rem;
+  border-radius:0 0 8px 0;font-weight:600;font-size:.92rem;
 }
 .skip:focus{left:0}
 
-/* ---------------------------------------------- NAV */
+/* =============================================== SCATTERED LEAVES
+   Cut from the logo artwork with transparent backgrounds. Purely
+   decorative: aria-hidden, never interactive, and hidden on small
+   screens where there's no room for them. */
+.leaf{
+  position:absolute;z-index:0;pointer-events:none;user-select:none;
+  opacity:.9;
+}
+.leaf--flip{transform:scaleX(-1)}
+@media (max-width:820px){.leaf{display:none}}
+
+/* =============================================== NAV */
 .nav{
   position:sticky;top:0;z-index:100;
-  background:rgba(255,255,255,.86);
+  background:rgba(255,255,255,.88);
   backdrop-filter:saturate(180%) blur(14px);
   -webkit-backdrop-filter:saturate(180%) blur(14px);
   border-bottom:1px solid transparent;
@@ -132,122 +141,207 @@ p:last-child{margin-bottom:0}
 }
 .nav__inner{
   display:flex;align-items:center;justify-content:space-between;
-  gap:1.5rem;min-height:70px;
+  gap:1.5rem;min-height:72px;
 }
 .wordmark{
   display:inline-flex;align-items:center;gap:.6rem;
   text-decoration:none;font-family:var(--font-display);
-  font-weight:600;font-size:1.06rem;letter-spacing:-.015em;
-  white-space:nowrap;
+  font-weight:600;font-size:1.06rem;letter-spacing:-.015em;white-space:nowrap;
 }
+/* the logo files carry a white background; multiply drops it out */
+.wordmark img{width:34px;height:auto;flex:none;mix-blend-mode:multiply}
 .wordmark svg{flex:none}
 .wordmark .amp{color:var(--pink);font-style:italic;font-weight:400}
-/* The logo files have a white background baked in; multiply drops it out
-   cleanly over any light section tint. */
-.wordmark img{
-  width:34px;height:auto;flex:none;
-  mix-blend-mode:multiply;
-}
 
-.nav__links{
-  display:flex;align-items:center;gap:2rem;
-  list-style:none;margin:0;padding:0;
-}
+.nav__links{display:flex;align-items:center;gap:2rem;list-style:none;margin:0;padding:0}
 .nav__links a{
-  text-decoration:none;font-size:.9rem;font-weight:500;
-  color:var(--muted);letter-spacing:.005em;
-  padding:.4rem 0;position:relative;transition:color .2s ease;
+  text-decoration:none;font-family:var(--font-chunk);
+  font-size:.86rem;font-weight:500;letter-spacing:.06em;text-transform:uppercase;
+  color:var(--muted);padding:.4rem 0;position:relative;transition:color .2s ease;
 }
 .nav__links a::after{
-  content:"";position:absolute;left:0;right:0;bottom:0;height:1.5px;
+  content:"";position:absolute;left:0;right:0;bottom:0;height:2px;
   background:var(--pink);transform:scaleX(0);transform-origin:left;
   transition:transform .28s cubic-bezier(.2,.7,.3,1);
 }
 .nav__links a:hover{color:var(--ink)}
 .nav__links a:hover::after{transform:scaleX(1)}
-@media (max-width:860px){.nav__links{display:none}}
+@media (max-width:900px){.nav__links{display:none}}
 
-/* ---------------------------------------------- BUTTONS */
+/* =============================================== BUTTONS */
 .btn{
   display:inline-flex;align-items:center;gap:.6rem;
   font-family:var(--font-body);font-size:.94rem;font-weight:600;
   text-decoration:none;border:none;cursor:pointer;
-  padding:.82rem 1.5rem;border-radius:100px;
-  letter-spacing:.005em;
+  padding:.85rem 1.55rem;border-radius:100px;letter-spacing:.005em;
   transition:transform .2s cubic-bezier(.2,.7,.3,1), background-color .2s ease, box-shadow .2s ease;
 }
 .btn--primary{
   background:var(--pink-deep);color:#fff;
   box-shadow:0 1px 2px rgba(176,27,91,.2), 0 10px 24px -10px rgba(222,45,117,.65);
 }
-.btn--primary:hover{background:var(--pink);transform:translateY(-2px)}
-.btn--ghost{
-  background:transparent;color:var(--ink);
-  box-shadow:inset 0 0 0 1.5px var(--line);
-}
-.btn--ghost:hover{box-shadow:inset 0 0 0 1.5px var(--ink);transform:translateY(-2px)}
-.btn--lg{padding:1.05rem 2rem;font-size:1rem}
+.btn--primary:hover{background:var(--pink);transform:translateY(-2px) rotate(-1deg)}
+.btn--ghost{background:transparent;color:var(--ink);box-shadow:inset 0 0 0 2px var(--line)}
+.btn--ghost:hover{box-shadow:inset 0 0 0 2px var(--ink);transform:translateY(-2px) rotate(1deg)}
+.btn--green{background:#fff;color:var(--green-dark)}
+.btn--green:hover{background:var(--green-wash);transform:translateY(-2px) rotate(-1deg)}
+.btn--lg{padding:1.05rem 2.1rem;font-size:1rem}
 .btn svg{flex:none;transition:transform .25s cubic-bezier(.2,.7,.3,1)}
 .btn:hover svg{transform:translateX(3px)}
 @media (prefers-reduced-motion:reduce){
   .btn,.btn svg,.btn:hover,.btn:hover svg{transition:none;transform:none}
 }
-.nav .btn{padding:.62rem 1.25rem;font-size:.88rem;white-space:nowrap}
+.nav .btn{padding:.62rem 1.25rem;font-size:.86rem;white-space:nowrap}
 @media (max-width:540px){
   .nav__inner{min-height:62px;gap:.6rem}
   .wordmark{font-size:.9rem;gap:.45rem}
-  .wordmark svg{width:20px;height:20px}
   .wordmark img{width:27px}
   .nav .btn{padding:.52rem .95rem;font-size:.8rem}
 }
 
-/* ---------------------------------------------- HERO */
-.hero{
-  position:relative;
-  padding-block:clamp(2.5rem,6vw,4.5rem) clamp(4rem,9vw,7.5rem);
-  overflow:hidden;
+/* =============================================== STICKER BADGES
+   Small rotated labels, like something slapped on by hand. */
+.badge{
+  display:inline-block;
+  font-family:var(--font-chunk);font-weight:600;
+  font-size:.78rem;letter-spacing:.09em;text-transform:uppercase;
+  padding:.5rem 1rem;border-radius:6px;
+  line-height:1.35;
+  box-shadow:0 6px 18px -8px rgba(22,20,26,.4);
 }
-.hero__grid{
-  display:grid;
-  grid-template-columns:minmax(0,1fr);
-  gap:clamp(2.5rem,5vw,4rem);
-  align-items:center;
+.badge--pink{background:var(--pink);color:#fff;transform:rotate(-2.5deg)}
+.badge--green{background:var(--green-dark);color:#fff;transform:rotate(2deg)}
+.badge--outline{
+  background:#fff;color:var(--pink-deep);transform:rotate(1.5deg);
+  box-shadow:inset 0 0 0 2px var(--pink), 0 6px 18px -8px rgba(22,20,26,.25);
 }
-@media (min-width:940px){
-  .hero__grid{grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);align-items:center}
+@media (prefers-reduced-motion:reduce){.badge{transform:none}}
+
+/* =============================================== HAND-DRAWN MARKS
+   Rough underlines and arrows, drawn as inline SVG data URIs so
+   there's nothing extra to load. */
+.mark{
+  background-repeat:no-repeat;
+  background-position:left calc(100% + 2px);
+  background-size:100% .34em;
+  padding-bottom:.1em;
 }
+.mark--pink{
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 14' preserveAspectRatio='none'%3E%3Cpath d='M3 9C40 3 68 12 104 7s65-6 93 1' stroke='%23DE2D75' stroke-width='4.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+}
+.mark--green{
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 14' preserveAspectRatio='none'%3E%3Cpath d='M3 9C40 3 68 12 104 7s65-6 93 1' stroke='%2345A90B' stroke-width='4.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+}
+.mark--white{
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 14' preserveAspectRatio='none'%3E%3Cpath d='M3 9C40 3 68 12 104 7s65-6 93 1' stroke='%23FFFFFF' stroke-width='4.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+}
+/* circled, like someone ringed it in pen */
+.ring{
+  position:relative;display:inline-block;padding:0 .18em;
+}
+.ring::after{
+  content:"";position:absolute;inset:-.32em -.5em -.28em -.5em;
+  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 240 80' preserveAspectRatio='none'%3E%3Cpath d='M126 5C64 2 12 16 8 40c-4 24 52 36 116 35 60-1 110-14 111-36C236 17 186 6 126 5' stroke='%23DE2D75' stroke-width='3' fill='none' stroke-linecap='round'/%3E%3C/svg%3E") center/100% 100% no-repeat;
+  pointer-events:none;
+}
+
+.scrawl{display:block;color:var(--pink);flex:none}
+
+/* =============================================== SECTIONS */
+.section{padding-block:var(--section-y);position:relative;overflow:hidden}
+.section--sand{background:var(--sand)}
+.section--ink{background:var(--ink);color:#fff}
+.section--green{background:var(--green-dark);color:#fff}
+
+.section__label{
+  display:flex;align-items:center;gap:.85rem;
+  font-family:var(--font-chunk);
+  font-size:.85rem;font-weight:600;letter-spacing:.13em;
+  text-transform:uppercase;color:var(--pink-deep);
+  margin-bottom:1.35rem;
+}
+.section__label::before{content:"";width:26px;height:2.5px;background:var(--pink);flex:none;border-radius:2px}
+.section--ink .section__label,.section--green .section__label{color:#fff}
+.section--ink .section__label::before{background:var(--pink-light)}
+.section--green .section__label::before{background:var(--pink-on-green)}
+
+h2.section__title{
+  font-size:clamp(2.1rem,4.8vw,3.5rem);
+  font-weight:500;letter-spacing:-.03em;line-height:1.04;
+  max-width:19ch;margin-bottom:1.9rem;
+}
+h2.section__title em{font-style:italic;font-weight:400;color:var(--pink-deep)}
+.section--ink h2.section__title em{color:var(--pink-light)}
+.section--green h2.section__title em{color:var(--pink-on-green)}
+
+.prose{max-width:60ch;color:var(--ink-soft)}
+.prose p + p{margin-top:1.15em}
+.prose strong{font-weight:600;color:var(--ink)}
+.section--ink .prose,.section--green .prose{color:rgba(255,255,255,.86)}
+.section--ink .prose strong,.section--green .prose strong{color:#fff}
+
+/* Two-column split. --flip puts the heading on the right on wide
+   screens, so consecutive sections don't march down in lockstep. */
+.split{display:grid;grid-template-columns:minmax(0,1fr);gap:clamp(2rem,4vw,4.5rem)}
+@media (min-width:900px){
+  .split{grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);align-items:start}
+  .split--sticky > .split__head{position:sticky;top:112px}
+  .split--flip{grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr)}
+  .split--flip > .split__head{order:2}
+  .split--flip > .split__body{order:1}
+}
+
+.pull{
+  margin:clamp(2.25rem,4vw,3rem) 0 0;
+  padding-left:clamp(1.15rem,2vw,1.75rem);
+  border-left:3px solid var(--pink);
+  font-family:var(--font-display);font-style:italic;
+  font-size:clamp(1.2rem,2vw,1.55rem);
+  line-height:1.38;letter-spacing:-.015em;color:var(--ink);max-width:26ch;
+}
+.section--ink .pull{color:#fff;border-left-color:var(--pink-light)}
+.section--green .pull{color:#fff;border-left-color:var(--pink-on-green)}
+
+/* =============================================== HERO */
+.hero{position:relative;padding-block:clamp(2.5rem,6vw,4.5rem) clamp(4rem,9vw,7rem);overflow:hidden}
+.hero .leaf--1{top:-80px;right:-120px;width:640px;opacity:.5}
+.hero .leaf--2{bottom:-85px;left:-150px;width:560px;transform:scaleX(-1);opacity:.3}
 
 .eyebrow{
   display:inline-flex;align-items:center;gap:.7rem;
-  font-size:.76rem;font-weight:600;letter-spacing:.16em;
-  text-transform:uppercase;color:var(--pink-deep);
-  margin-bottom:1.6rem;
+  font-family:var(--font-chunk);
+  font-size:.82rem;font-weight:600;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--pink-deep);margin-bottom:1.5rem;
 }
-.eyebrow::before{
-  content:"";width:28px;height:1.5px;background:var(--pink);
-}
+.eyebrow::before{content:"";width:30px;height:2.5px;background:var(--pink);border-radius:2px}
 
-/* The logo IS the headline. The <h1> wraps it so the page still has a
-   proper heading; the alt text carries the words for search and screen
-   readers. Multiply drops the logo's white background out. */
-.hero__logo{margin:0 0 clamp(1.5rem,2.5vw,2.25rem)}
-.hero__logo img{
-  width:min(100%,660px);height:auto;
-  mix-blend-mode:multiply;
+/* The logo IS the headline. The <h1> wraps it so the page keeps a real
+   heading; the alt text carries the words for search and screen readers. */
+.hero__logo{position:relative;margin:0 0 clamp(1.75rem,3vw,2.5rem);width:min(100%,680px)}
+.hero__logo img{width:100%;height:auto;mix-blend-mode:multiply}
+.hero__sticker{
+  position:absolute;right:4%;bottom:8%;
+  max-width:9.5rem;text-align:center;
+  transform:rotate(-6deg);
 }
+@media (max-width:700px){.hero__sticker{right:2%;bottom:2%;font-size:.68rem;max-width:7.5rem}}
+
+.hero__grid{display:grid;grid-template-columns:minmax(0,1fr);gap:clamp(2.5rem,5vw,4rem);align-items:center}
+@media (min-width:940px){.hero__grid{grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr)}}
 
 .hero__lede{
-  font-size:clamp(1.08rem,.5vw + 1rem,1.28rem);
-  color:var(--ink-soft);max-width:36ch;line-height:1.6;
-  margin-bottom:2.4rem;
+  font-size:clamp(1.1rem,.5vw + 1rem,1.32rem);
+  color:var(--ink-soft);max-width:34ch;line-height:1.58;margin-bottom:2.2rem;
 }
 .hero__cta{display:flex;flex-wrap:wrap;gap:.85rem;align-items:center}
-
-/* Diverging-line motif */
-.motif{
-  position:relative;
-  align-self:end;
+.hero__nudge{
+  display:flex;align-items:center;gap:.5rem;
+  font-family:var(--font-display);font-style:italic;font-size:1rem;
+  color:var(--pink-deep);margin-top:1.15rem;
 }
+
+/* the fork-in-the-road chart */
+.motif{position:relative;align-self:center}
 .motif svg{width:100%;height:auto;overflow:visible}
 .motif__path{
   fill:none;stroke-linecap:round;stroke-linejoin:round;
@@ -255,246 +349,173 @@ p:last-child{margin-bottom:0}
   animation:draw 2.2s cubic-bezier(.3,.75,.35,1) .25s forwards;
 }
 @keyframes draw{to{stroke-dashoffset:0}}
-/* the road not taken — dashed, so it can't use the draw animation */
-.motif__path--down{
-  stroke-dasharray:6 7;stroke-dashoffset:0;
-  opacity:0;animation:fadeIn 1.1s ease 1.5s forwards;
-}
+.motif__path--down{stroke-dasharray:6 7;opacity:0;animation:fadeIn 1.1s ease 1.5s forwards}
 @keyframes fadeIn{to{opacity:1}}
 @media (prefers-reduced-motion:reduce){
   .motif__path{animation:none;stroke-dashoffset:0}
   .motif__path--down{animation:none;opacity:1}
 }
-.motif__label{
-  font-family:var(--font-body);font-size:11px;font-weight:600;
-  letter-spacing:.14em;text-transform:uppercase;
-}
+.motif__label{font-family:var(--font-chunk);font-size:12px;font-weight:600;letter-spacing:.1em}
 
-.hero__stats{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(min(100%,180px),1fr));
+/* =============================================== STATS */
+.stats{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,190px),1fr));
   gap:clamp(1.75rem,3vw,2.5rem);
   margin-top:clamp(3rem,6vw,4.5rem);
   padding-top:clamp(2rem,4vw,2.75rem);
-  border-top:1px solid var(--line);
+  border-top:2.5px solid var(--pink-wash);
 }
 .stat__n{
-  font-family:var(--font-display);font-size:clamp(1.9rem,3.4vw,2.7rem);
-  font-weight:500;line-height:1;letter-spacing:-.03em;display:block;
+  font-family:var(--font-numeral);
+  font-size:clamp(2.4rem,4.4vw,3.6rem);
+  line-height:.95;letter-spacing:.005em;display:block;
+  text-transform:uppercase;color:var(--ink);
 }
-.stat__n em{color:var(--pink);font-style:normal}
+.stat:nth-child(odd) .stat__n em{color:var(--pink);font-style:normal}
+.stat:nth-child(even) .stat__n em{color:var(--green-deep);font-style:normal}
 .stat__l{
-  font-size:.83rem;color:var(--muted);margin-top:.5rem;
-  line-height:1.4;max-width:20ch;
+  font-size:.85rem;color:var(--muted);margin-top:.6rem;line-height:1.45;max-width:21ch;
 }
 
-/* ---------------------------------------------- SECTIONS */
-.section{padding-block:var(--section-y)}
-.section--sand{background:var(--sand)}
-.section--ink{background:var(--ink);color:var(--cream)}
-
-.section__label{
-  display:flex;align-items:center;gap:.85rem;
-  font-size:.75rem;font-weight:600;letter-spacing:.16em;
-  text-transform:uppercase;color:var(--muted);
-  margin-bottom:1.5rem;
-}
-.section__label::before{
-  content:"";width:22px;height:1.5px;background:var(--pink);flex:none;
-}
-.section--ink .section__label{color:rgba(250,247,242,.55)}
-
-h2.section__title{
-  font-size:clamp(2.05rem,4.6vw,3.4rem);
-  font-weight:500;letter-spacing:-.03em;line-height:1.04;
-  max-width:19ch;margin-bottom:1.9rem;
-}
-h2.section__title em{
-  font-style:italic;font-weight:400;color:var(--pink-deep);
-}
-.section--ink h2.section__title em{color:#FF8FBB}
-
-.prose{max-width:60ch;color:var(--ink-soft)}
-.prose p + p{margin-top:1.15em}
-.prose strong{font-weight:600;color:var(--ink)}
-.section--ink .prose{color:rgba(250,247,242,.8)}
-.section--ink .prose strong{color:#fff}
-
-.split{
-  display:grid;grid-template-columns:minmax(0,1fr);
-  gap:clamp(2rem,4vw,4.5rem);
-}
-@media (min-width:900px){
-  .split{grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);align-items:start}
-  .split--sticky > :first-child{position:sticky;top:110px}
-}
-
-/* Pull quote */
-.pull{
-  margin:clamp(2.25rem,4vw,3rem) 0 0;
-  padding-left:clamp(1.15rem,2vw,1.75rem);
-  border-left:2.5px solid var(--pink);
-  font-family:var(--font-display);font-style:italic;
-  font-size:clamp(1.2rem,2vw,1.55rem);
-  line-height:1.38;letter-spacing:-.015em;color:var(--ink);
-  max-width:26ch;
-}
-.section--ink .pull{color:var(--cream);border-left-color:#FF8FBB}
-
-/* ---------------------------------------------- CHECKLIST */
-.checklist{list-style:none;margin:0;padding:0;display:grid;gap:.35rem}
+/* =============================================== CHECKLIST (green section) */
+.checklist{list-style:none;margin:0;padding:0;display:grid;gap:.3rem}
 .checklist li{
-  display:grid;grid-template-columns:auto 1fr;gap:1.05rem;
-  align-items:start;
-  padding:1.35rem 0;
-  border-bottom:1px solid var(--line);
-  font-size:clamp(1.02rem,.35vw + .96rem,1.15rem);
-  line-height:1.55;color:var(--ink-soft);
+  display:grid;grid-template-columns:auto 1fr;gap:1.05rem;align-items:start;
+  padding:1.4rem 0;border-bottom:1px solid rgba(255,255,255,.22);
+  font-size:clamp(1.02rem,.35vw + .96rem,1.16rem);
+  line-height:1.55;color:rgba(255,255,255,.92);
 }
-.checklist li:first-child{border-top:1px solid var(--line)}
+.checklist li:first-child{border-top:1px solid rgba(255,255,255,.22)}
 .checklist .tick{
-  width:26px;height:26px;border-radius:50%;
-  background:var(--green-wash);
-  display:grid;place-items:center;margin-top:.18rem;flex:none;
+  width:28px;height:28px;border-radius:50%;background:#fff;
+  display:grid;place-items:center;margin-top:.15rem;flex:none;
+  transform:rotate(-4deg);
 }
-.checklist .tick svg{width:13px;height:13px}
+.checklist li:nth-child(even) .tick{transform:rotate(5deg)}
+.checklist .tick svg{width:14px;height:14px}
+@media (prefers-reduced-motion:reduce){.checklist .tick{transform:none}}
 
-/* ---------------------------------------------- CARDS */
-.cards{
-  display:grid;gap:1.15rem;
-  grid-template-columns:1fr;
-  margin-top:clamp(2.5rem,4vw,3.5rem);
-}
+/* =============================================== CARDS */
+.cards{display:grid;gap:1.15rem;grid-template-columns:1fr;margin-top:clamp(2.5rem,4vw,3.5rem)}
 @media (min-width:620px){.cards{grid-template-columns:repeat(2,minmax(0,1fr))}}
 .card{
-  background:var(--cream);
-  border:1px solid var(--line-soft);
-  border-radius:var(--radius);
-  padding:clamp(1.6rem,2.5vw,2.1rem);
-  transition:transform .3s cubic-bezier(.2,.7,.3,1), box-shadow .3s ease;
+  position:relative;overflow:hidden;
+  background:#fff;border:2px solid var(--line-soft);border-radius:var(--radius);
+  padding:clamp(1.7rem,2.5vw,2.25rem);
+  transition:transform .3s cubic-bezier(.2,.7,.3,1), box-shadow .3s ease, border-color .3s ease;
 }
-.section--sand .card{background:var(--cream)}
-.card:hover{border-color:var(--pink-wash);transform:translateY(-3px);box-shadow:0 14px 40px -22px rgba(22,20,26,.32)}
+.card:hover{
+  transform:translateY(-4px) rotate(-.5deg);
+  border-color:var(--pink-wash);
+  box-shadow:0 18px 44px -24px rgba(22,20,26,.4);
+}
+.card:nth-child(even):hover{transform:translateY(-4px) rotate(.5deg)}
 @media (prefers-reduced-motion:reduce){.card,.card:hover{transition:none;transform:none}}
+/* oversized ghost numeral in the corner */
 .card__n{
-  font-family:var(--font-display);font-size:.85rem;font-weight:600;
-  color:var(--pink);letter-spacing:.1em;display:block;margin-bottom:1rem;
+  position:absolute;top:-.06em;right:.1em;
+  font-family:var(--font-numeral);font-size:5rem;line-height:1;
+  color:var(--pink-wash);pointer-events:none;user-select:none;
 }
-.card h3{font-size:1.22rem;font-weight:600;margin-bottom:.7rem;letter-spacing:-.02em}
-.card p{font-size:.98rem;color:var(--muted);line-height:1.6;margin:0}
+.card:nth-child(even) .card__n{color:var(--green-wash)}
+.card h3{position:relative;font-size:1.28rem;font-weight:600;margin-bottom:.7rem;letter-spacing:-.02em}
+.card p{position:relative;font-size:.98rem;color:var(--muted);line-height:1.6;margin:0}
 
-/* ---------------------------------------------- ABOUT */
+/* =============================================== ABOUT */
 .about__portrait{
-  position:relative;
-  border-radius:var(--radius);
-  overflow:hidden;
-  background:var(--sand);
-  aspect-ratio:4/5;
-  box-shadow:0 20px 60px -30px rgba(22,20,26,.4);
+  position:relative;border-radius:var(--radius);overflow:hidden;
+  background:var(--sand);aspect-ratio:4/5;
+  transform:rotate(-1.75deg);
+  box-shadow:0 22px 60px -30px rgba(22,20,26,.45);
 }
+@media (prefers-reduced-motion:reduce){.about__portrait{transform:none}}
 .about__portrait img{width:100%;height:100%;object-fit:cover}
 .about__portrait figcaption{
-  position:absolute;inset:auto 0 0 0;
-  padding:1.5rem 1.35rem 1.15rem;
+  position:absolute;inset:auto 0 0 0;padding:1.6rem 1.35rem 1.15rem;
   background:linear-gradient(transparent,rgba(22,20,26,.85));
-  color:var(--cream);font-size:.85rem;letter-spacing:.02em;
+  color:#fff;font-size:.85rem;
 }
 .about__portrait figcaption b{display:block;font-weight:600;font-size:1rem;margin-bottom:.15rem}
-
-/* Placeholder shown until a real photo is dropped in */
 .portrait-placeholder{
-  position:absolute;inset:0;
-  display:grid;place-content:center;justify-items:center;gap:.85rem;
-  text-align:center;padding:2rem;
-  background:
-    repeating-linear-gradient(-45deg,var(--sand) 0 12px,#F2E6EC 12px 24px);
-  color:var(--muted);
+  position:absolute;inset:0;display:grid;place-content:center;justify-items:center;
+  gap:.85rem;text-align:center;padding:2rem;color:var(--muted);
+  background:repeating-linear-gradient(-45deg,var(--sand) 0 12px,#F6E4EE 12px 24px);
 }
 .portrait-placeholder svg{opacity:.4}
 .portrait-placeholder span{
-  font-size:.78rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;
-  line-height:1.6;max-width:22ch;
+  font-family:var(--font-chunk);font-size:.8rem;font-weight:600;
+  letter-spacing:.1em;text-transform:uppercase;line-height:1.6;max-width:22ch;
 }
+.about__stack{display:flex;flex-direction:column;gap:1.25rem;align-items:flex-start}
 
-.creds{
-  list-style:none;margin:2rem 0 0;padding:0;
-  display:flex;flex-wrap:wrap;gap:.55rem;
-}
+.creds{list-style:none;margin:1.75rem 0 0;padding:0;display:flex;flex-wrap:wrap;gap:.5rem}
 .creds li{
-  font-size:.82rem;font-weight:500;color:var(--ink-soft);
-  background:var(--cream);border:1px solid var(--line);
-  padding:.45rem .95rem;border-radius:100px;
+  font-family:var(--font-chunk);
+  font-size:.78rem;font-weight:500;letter-spacing:.07em;text-transform:uppercase;
+  color:var(--ink-soft);background:#fff;border:2px solid var(--line);
+  padding:.42rem .9rem;border-radius:100px;
 }
-.section--sand .creds li{background:var(--cream)}
+.creds li:nth-child(3n+1){border-color:var(--pink-wash)}
+.creds li:nth-child(3n+2){border-color:var(--green-wash)}
 
-/* ---------------------------------------------- TESTIMONIALS */
+/* =============================================== TESTIMONIALS */
 .quotes{
   display:grid;gap:1.15rem;
-  grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));
+  grid-template-columns:repeat(auto-fit,minmax(min(100%,290px),1fr));
   margin-top:clamp(2.5rem,4vw,3.5rem);
 }
 .quote{
-  background:rgba(250,247,242,.055);
-  border:1px solid rgba(250,247,242,.13);
-  border-radius:var(--radius);
-  padding:clamp(1.7rem,2.5vw,2.15rem);
+  background:rgba(255,255,255,.055);border:1px solid rgba(255,255,255,.14);
+  border-radius:var(--radius);padding:clamp(1.7rem,2.5vw,2.15rem);
   display:flex;flex-direction:column;
+  transition:transform .3s cubic-bezier(.2,.7,.3,1);
 }
+.quote:nth-child(odd){transform:rotate(-.7deg)}
+.quote:nth-child(even){transform:rotate(.7deg)}
+.quote:hover{transform:rotate(0deg) translateY(-3px)}
+@media (prefers-reduced-motion:reduce){.quote,.quote:hover{transform:none;transition:none}}
 .quote__mark{
   font-family:var(--font-display);font-size:3rem;line-height:.6;
-  color:#FF8FBB;margin-bottom:.9rem;display:block;
+  color:var(--pink-light);margin-bottom:.9rem;display:block;
 }
-.quote p{
-  font-size:1.03rem;line-height:1.6;color:rgba(250,247,242,.88);
-  margin:0 0 1.5rem;flex:1;
-}
+.quote p{font-size:1.03rem;line-height:1.6;color:rgba(255,255,255,.9);margin:0 0 1.5rem;flex:1}
 .quote footer{
-  font-size:.84rem;color:rgba(250,247,242,.55);line-height:1.5;
-  padding-top:1.1rem;border-top:1px solid rgba(250,247,242,.13);
+  font-size:.84rem;color:rgba(255,255,255,.55);line-height:1.5;
+  padding-top:1.1rem;border-top:1px solid rgba(255,255,255,.14);
 }
-.quote footer b{display:block;color:var(--cream);font-weight:600;font-size:.92rem}
-
+.quote footer b{display:block;color:#fff;font-weight:600;font-size:.92rem}
 .placeholder-note{
-  display:inline-block;margin-top:2rem;
-  font-size:.8rem;color:rgba(250,247,242,.5);
-  border:1px dashed rgba(250,247,242,.28);
-  padding:.6rem 1rem;border-radius:8px;
+  display:inline-block;margin-top:2rem;font-size:.8rem;color:rgba(255,255,255,.5);
+  border:1px dashed rgba(255,255,255,.3);padding:.6rem 1rem;border-radius:8px;
 }
 
-/* ---------------------------------------------- CTA */
-.cta{text-align:center;padding-block:clamp(5rem,11vw,9rem)}
+/* =============================================== CTA */
+.cta{text-align:center;padding-block:clamp(5rem,11vw,9rem);position:relative;overflow:hidden}
+.cta .leaf--1{top:-70px;left:-140px;width:560px;transform:scaleX(-1);opacity:.5}
+.cta .leaf--2{bottom:-80px;right:-130px;width:560px;opacity:.5}
 .cta h2{
-  font-size:clamp(2.3rem,6vw,4.2rem);font-weight:400;
-  letter-spacing:-.035em;line-height:1.02;margin-bottom:1.4rem;
-  max-width:16ch;margin-inline:auto;
+  font-size:clamp(2.4rem,6.2vw,4.4rem);font-weight:400;
+  letter-spacing:-.035em;line-height:1.02;margin:0 auto 1.4rem;max-width:15ch;
 }
 .cta h2 em{font-style:italic;color:var(--pink-deep)}
-.cta p{
-  max-width:44ch;margin:0 auto 2.6rem;color:var(--ink-soft);
-  font-size:clamp(1.05rem,.4vw + 1rem,1.2rem);
-}
+.cta p{max-width:44ch;margin:0 auto 2.6rem;color:var(--ink-soft);font-size:clamp(1.05rem,.4vw + 1rem,1.2rem)}
 .cta__row{display:flex;flex-wrap:wrap;gap:.9rem;justify-content:center}
 
-/* ---------------------------------------------- FOOTER */
-.footer{
-  background:var(--ink);color:rgba(250,247,242,.55);
-  padding-block:clamp(3rem,6vw,4.5rem);
-  font-size:.88rem;
-}
-.footer__inner{
-  display:flex;flex-wrap:wrap;gap:1.75rem 2.5rem;
-  justify-content:space-between;align-items:center;
-}
-.footer a{color:rgba(250,247,242,.78);text-decoration:none;transition:color .2s}
-.footer a:hover{color:#FF8FBB}
+/* =============================================== FOOTER */
+.footer{background:var(--ink);color:rgba(255,255,255,.55);padding-block:clamp(3rem,6vw,4.5rem);font-size:.88rem}
+.footer__inner{display:flex;flex-wrap:wrap;gap:1.75rem 2.5rem;justify-content:space-between;align-items:center}
+.footer a{color:rgba(255,255,255,.78);text-decoration:none;transition:color .2s}
+.footer a:hover{color:var(--pink-light)}
 .footer__links{display:flex;flex-wrap:wrap;gap:1.6rem}
-.footer .wordmark{color:var(--cream);font-size:1rem}
-.footer .wordmark .amp{color:#FF8FBB}
-.footer__legal{width:100%;padding-top:1.75rem;margin-top:.5rem;
-  border-top:1px solid rgba(250,247,242,.12);font-size:.8rem;
-  color:rgba(250,247,242,.4);}
+.footer .wordmark{color:#fff;font-size:1rem}
+.footer .wordmark .amp{color:var(--pink-light)}
+.footer__legal{
+  width:100%;padding-top:1.75rem;margin-top:.5rem;
+  border-top:1px solid rgba(255,255,255,.13);
+  font-size:.8rem;color:rgba(255,255,255,.4);
+}
 
-/* ---------------------------------------------- REVEAL */
+/* =============================================== REVEAL */
 .reveal{opacity:0;transform:translateY(22px)}
 .reveal.is-in{
   opacity:1;transform:none;
@@ -535,8 +556,11 @@ h2.section__title em{
 
 <main id="main">
 
-  <!-- ============================= HERO ============================= -->
+  <!-- ================================ HERO ================================ -->
   <section class="hero" id="top">
+    <img class="leaf leaf--1" src="leaf-b.png" alt="" aria-hidden="true" width="820" height="218">
+    <img class="leaf leaf--2" src="leaf-a.png" alt="" aria-hidden="true" width="820" height="257">
+
     <div class="container">
 
       <span class="eyebrow">Fractional CFO &middot; Board Advisor &middot; NED</span>
@@ -544,10 +568,10 @@ h2.section__title em{
       <h1 class="hero__logo">
         <img src="logo.png" width="1100" height="678" fetchpriority="high"
              alt="Flourish or Flounder — which will your business do?">
+        <span class="badge badge--pink hero__sticker">No jargon. Ever.</span>
       </h1>
 
       <div class="hero__grid">
-
         <div>
           <p class="hero__lede">
             Straight-talking advice for founders who want to actually understand
@@ -563,47 +587,51 @@ h2.section__title em{
             </a>
             <a class="btn btn--ghost btn--lg" href="#what-i-do">How I work</a>
           </div>
+
+          <p class="hero__nudge">
+            <svg class="scrawl" width="34" height="24" viewBox="0 0 34 24" fill="none" aria-hidden="true">
+              <path d="M32 20C24 21 12 18 6 9" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              <path d="M4 3c.6 3 1.2 5 1.8 6.3M11 9.6c-2.4.6-4.2.5-5.2-.3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+            it's just a conversation
+          </p>
         </div>
 
-        <!-- Diverging-line motif: one path climbs, one falls -->
+        <!-- the fork in the road -->
         <div class="motif" aria-hidden="true">
           <svg viewBox="0 0 420 300" role="presentation">
-            <line x1="0" y1="299" x2="420" y2="299" stroke="#E4DDE2" stroke-width="1.5"/>
-            <line x1="1" y1="0" x2="1" y2="300" stroke="#E4DDE2" stroke-width="1.5"/>
+            <line x1="0" y1="299" x2="420" y2="299" stroke="#E9E1E6" stroke-width="1.5"/>
+            <line x1="1" y1="0" x2="1" y2="300" stroke="#E9E1E6" stroke-width="1.5"/>
 
-            <!-- shared stem -->
             <path class="motif__path" d="M10 215 C 60 205, 100 195, 150 175"
                   stroke="#6B6672" stroke-width="2.5"/>
-            <!-- flourish -->
             <path class="motif__path" d="M150 175 C 210 150, 250 105, 290 62 S 370 26, 405 18"
-                  stroke="#DE2D75" stroke-width="3.5"/>
-            <!-- flounder -->
+                  stroke="#DE2D75" stroke-width="4"/>
             <path class="motif__path--down" d="M150 175 C 200 205, 240 235, 290 252 S 370 268, 405 272"
                   fill="none" stroke="#C9C2CB" stroke-width="2.5" stroke-linecap="round"/>
 
-            <circle cx="150" cy="175" r="5" fill="#FFFFFF" stroke="#16141A" stroke-width="2.2"/>
-            <circle cx="405" cy="18" r="6" fill="#DE2D75"/>
+            <circle cx="150" cy="175" r="5.5" fill="#FFFFFF" stroke="#16141A" stroke-width="2.4"/>
+            <circle cx="405" cy="18" r="6.5" fill="#DE2D75"/>
 
-            <text class="motif__label" x="405" y="42" text-anchor="end" fill="#B01B5B">Flourish</text>
+            <text class="motif__label" x="405" y="44" text-anchor="end" fill="#B01B5B">Flourish</text>
             <text class="motif__label" x="405" y="292" text-anchor="end" fill="#9A93A0">Flounder</text>
-            <text class="motif__label" x="140" y="158" text-anchor="end" fill="#6B6672" font-size="10">The decision</text>
+            <text class="motif__label" x="140" y="158" text-anchor="end" fill="#6B6672" font-size="10.5">The decision</text>
           </svg>
         </div>
-
       </div>
 
-      <div class="hero__stats reveal">
+      <div class="stats reveal">
         <div class="stat">
           <span class="stat__n"><em>20</em>+ years</span>
           <span class="stat__l">as a CFO in e-commerce, retail and multi-channel</span>
         </div>
         <div class="stat">
-          <span class="stat__n"><em>1</em> AIM flotation</span>
-          <span class="stat__l">steered from the inside, start to bell</span>
+          <span class="stat__n"><em>1</em> flotation</span>
+          <span class="stat__l">on AIM, steered from the inside, start to bell</span>
         </div>
         <div class="stat">
-          <span class="stat__n"><em>200</em>%+ growth</span>
-          <span class="stat__l">in the room as the numbers scaled</span>
+          <span class="stat__n"><em>200</em>%+</span>
+          <span class="stat__l">growth, in the room as the numbers scaled</span>
         </div>
         <div class="stat">
           <span class="stat__n">Both <em>sides</em></span>
@@ -613,16 +641,17 @@ h2.section__title em{
     </div>
   </section>
 
-  <!-- ============================= WHAT I DO ============================= -->
+  <!-- ================================ WHAT I DO ================================ -->
   <section class="section section--sand" id="what-i-do">
     <div class="container">
       <div class="split split--sticky">
-        <div>
+        <div class="split__head">
           <span class="section__label">What I do</span>
           <h2 class="section__title">No jargon. No 40-page reports <em>nobody reads.</em></h2>
+          <span class="badge badge--outline">Numbers, explained properly</span>
         </div>
 
-        <div class="prose reveal">
+        <div class="split__body prose reveal">
           <p>
             Most finance advice for founders is either too basic to be useful, or so
             full of jargon it might as well be a foreign language.
@@ -631,7 +660,7 @@ h2.section__title em{
             I've spent 20 years as a CFO — through start-up, high growth, acquisitions,
             an AIM flotation, and exits — mostly in e-commerce and retail businesses
             just like yours. <strong>I know what it's like to grow fast and still stare
-            at the bank balance wondering where the money went.</strong>
+            at the bank balance wondering <span class="mark mark--pink">where the money went</span>.</strong>
           </p>
           <p>
             Now I work with founder-led businesses to build genuine cash flow clarity,
@@ -645,38 +674,46 @@ h2.section__title em{
     </div>
   </section>
 
-  <!-- ============================= WHO IT'S FOR ============================= -->
-  <section class="section" id="who-for">
+  <!-- ================================ WHO IT'S FOR (green) ================================ -->
+  <section class="section section--green" id="who-for">
+    <!-- anchored to the section's bottom edge: the nav would otherwise sit
+         over a leaf placed at the top -->
+    <img class="leaf" src="leaf-a.png" alt="" aria-hidden="true"
+         style="bottom:-60px;right:-100px;width:620px;opacity:.3;filter:brightness(1.6)">
+    <img class="leaf leaf--flip" src="leaf-c.png" alt="" aria-hidden="true"
+         style="bottom:70px;left:-60px;width:230px;opacity:.28;filter:brightness(1.6)">
+
     <div class="container">
       <div class="split split--sticky">
-        <div>
+        <div class="split__head">
           <span class="section__label">Who this is for</span>
           <h2 class="section__title">You might <em>recognise yourself</em> here.</h2>
+          <span class="badge badge--outline">Sound familiar?</span>
         </div>
 
-        <div class="reveal">
+        <div class="split__body reveal">
           <ul class="checklist">
             <li>
               <span class="tick" aria-hidden="true">
-                <svg viewBox="0 0 14 14" fill="none"><path d="M2 7.4 5.3 10.6 12 3.4" stroke="#357F08" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                <svg viewBox="0 0 14 14" fill="none"><path d="M2 7.4 5.3 10.6 12 3.4" stroke="#2E6F08" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
               </span>
               <span>Revenue's growing but cash always feels tighter than it should.</span>
             </li>
             <li>
               <span class="tick" aria-hidden="true">
-                <svg viewBox="0 0 14 14" fill="none"><path d="M2 7.4 5.3 10.6 12 3.4" stroke="#357F08" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                <svg viewBox="0 0 14 14" fill="none"><path d="M2 7.4 5.3 10.6 12 3.4" stroke="#2E6F08" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
               </span>
-              <span>You've never had anyone explain your numbers in a way that actually made sense.</span>
+              <span>You've never had anyone explain your numbers in a way that <span class="mark mark--white">actually made sense</span>.</span>
             </li>
             <li>
               <span class="tick" aria-hidden="true">
-                <svg viewBox="0 0 14 14" fill="none"><path d="M2 7.4 5.3 10.6 12 3.4" stroke="#357F08" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                <svg viewBox="0 0 14 14" fill="none"><path d="M2 7.4 5.3 10.6 12 3.4" stroke="#2E6F08" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
               </span>
               <span>You're managing multiple sales channels and honestly aren't sure which ones are making you money.</span>
             </li>
             <li>
               <span class="tick" aria-hidden="true">
-                <svg viewBox="0 0 14 14" fill="none"><path d="M2 7.4 5.3 10.6 12 3.4" stroke="#357F08" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                <svg viewBox="0 0 14 14" fill="none"><path d="M2 7.4 5.3 10.6 12 3.4" stroke="#2E6F08" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
               </span>
               <span>You're thinking about a sale or investment in the next few years and have no idea if your numbers are ready.</span>
             </li>
@@ -688,16 +725,19 @@ h2.section__title em{
     </div>
   </section>
 
-  <!-- ============================= BREADTH ============================= -->
-  <section class="section section--sand" id="breadth">
+  <!-- ================================ BREADTH ================================ -->
+  <section class="section" id="breadth">
+    <img class="leaf" src="leaf-c.png" alt="" aria-hidden="true"
+         style="top:40px;left:-90px;width:260px;transform:rotate(-14deg);opacity:.5">
+
     <div class="container">
       <div class="split split--sticky">
-        <div>
+        <div class="split__head">
           <span class="section__label">Where I'm most useful</span>
           <h2 class="section__title">Someone who's <em>been through it</em> before, beside you.</h2>
         </div>
 
-        <div class="prose reveal">
+        <div class="split__body prose reveal">
           <p>
             Being a founder can be tough. Why not have someone who's done it before
             alongside you — whether that's rapid growth, fundraising, systems
@@ -714,33 +754,33 @@ h2.section__title em{
           </p>
           <p>
             <strong>If your problem is "we're growing but something feels off and I
-            can't quite name it," that's usually exactly the kind of mess I'm most
-            useful in.</strong> Multi-currency, multi-channel, multi-warehouse
-            complexity is where I've spent most of my career — so if your finances
-            have outgrown a single neat spreadsheet, that's familiar territory, not a
-            special case.
+            can't quite name it," that's usually exactly the kind of
+            <span class="mark mark--green">mess I'm most useful in</span>.</strong>
+            Multi-currency, multi-channel, multi-warehouse complexity is where I've
+            spent most of my career — so if your finances have outgrown a single neat
+            spreadsheet, that's familiar territory, not a special case.
           </p>
         </div>
       </div>
 
       <div class="cards reveal">
         <article class="card">
-          <span class="card__n">01</span>
+          <span class="card__n" aria-hidden="true">01</span>
           <h3>Cash flow clarity</h3>
           <p>Understand where the money actually goes, which channels earn their keep, and what your numbers are telling you before your bank balance does.</p>
         </article>
         <article class="card">
-          <span class="card__n">02</span>
+          <span class="card__n" aria-hidden="true">02</span>
           <h3>Exit readiness</h3>
           <p>Getting a founder-led business into the shape a buyer or investor expects — long before you start the conversation.</p>
         </article>
         <article class="card">
-          <span class="card__n">03</span>
+          <span class="card__n" aria-hidden="true">03</span>
           <h3>Funding &amp; deals</h3>
           <p>Debt and equity raises, acquisitions and disposals, due diligence — negotiated from both sides of the table.</p>
         </article>
         <article class="card">
-          <span class="card__n">04</span>
+          <span class="card__n" aria-hidden="true">04</span>
           <h3>Board &amp; governance</h3>
           <p>Non-executive and board advisory roles for founder-led businesses, plus mentoring for founders and finance teams.</p>
         </article>
@@ -748,16 +788,20 @@ h2.section__title em{
     </div>
   </section>
 
-  <!-- ============================= WHY ME ============================= -->
-  <section class="section" id="why-me">
+  <!-- ================================ WHY ME (flipped) ================================ -->
+  <section class="section section--sand" id="why-me">
+    <img class="leaf leaf--flip" src="leaf-a.png" alt="" aria-hidden="true"
+         style="bottom:-80px;left:-140px;width:540px;opacity:.36">
+
     <div class="container">
-      <div class="split split--sticky">
-        <div>
+      <div class="split split--sticky split--flip">
+        <div class="split__head">
           <span class="section__label">Why work with me</span>
-          <h2 class="section__title">I'm not guessing what a buyer will care about. <em>I've been one.</em></h2>
+          <h2 class="section__title">I'm not guessing what a buyer cares about. <em>I've been one.</em></h2>
+          <span class="badge badge--green">Operator &amp; adviser</span>
         </div>
 
-        <div class="prose reveal">
+        <div class="split__body prose reveal">
           <p>
             Most advisers have either done the operator job or the advisory job —
             rarely both, and rarely across the full lifecycle of a business.
@@ -767,7 +811,7 @@ h2.section__title em{
             flotation, the one restructuring a business that was struggling, and the
             one on the other side of the table doing due diligence on an acquisition.
             <strong>That means I'm not guessing what a buyer, investor, or board will
-            actually care about — I've been all three.</strong>
+            actually care about — I've been <span class="ring">all three</span>.</strong>
           </p>
           <p>
             People I've worked with talk about being "comfortable in both the detail
@@ -787,8 +831,8 @@ h2.section__title em{
     </div>
   </section>
 
-  <!-- ============================= ABOUT ============================= -->
-  <section class="section section--sand" id="about">
+  <!-- ================================ ABOUT ================================ -->
+  <section class="section" id="about">
     <div class="container">
       <div class="split">
         <div class="reveal">
@@ -817,9 +861,13 @@ h2.section__title em{
           </figure>
         </div>
 
-        <div>
-          <span class="section__label">A bit about me</span>
-          <h2 class="section__title">I'm <em>Cate Hulme.</em></h2>
+        <div class="about__stack">
+          <div>
+            <span class="section__label">A bit about me</span>
+            <h2 class="section__title">I'm <em>Cate Hulme.</em></h2>
+          </div>
+
+          <span class="badge badge--pink">ICAEW Fellow</span>
 
           <div class="prose">
             <p>
@@ -848,16 +896,20 @@ h2.section__title em{
     </div>
   </section>
 
-  <!-- ============================= HOW I WORK ============================= -->
-  <section class="section" id="how-i-work">
+  <!-- ================================ HOW I WORK (flipped) ================================ -->
+  <section class="section section--sand" id="how-i-work">
+    <img class="leaf" src="leaf-c.png" alt="" aria-hidden="true"
+         style="bottom:30px;right:-80px;width:250px;transform:scaleX(-1) rotate(12deg);opacity:.45">
+
     <div class="container">
-      <div class="split split--sticky">
-        <div>
+      <div class="split split--sticky split--flip">
+        <div class="split__head">
           <span class="section__label">What it's like to work with me</span>
           <h2 class="section__title">Explained the way I'd explain it to <em>a mate over coffee.</em></h2>
+          <span class="badge badge--pink">Whiteboard &gt; PowerPoint</span>
         </div>
 
-        <div class="prose reveal">
+        <div class="split__body prose reveal">
           <p>
             I'll walk you through your own numbers with a whiteboard, a napkin,
             whatever's to hand — <strong>until it actually clicks, not just until
@@ -865,7 +917,7 @@ h2.section__title em{
           </p>
           <p>
             I ask a lot of "why" questions, because half the time the real problem
-            isn't the number itself — it's the decision hiding behind it.
+            isn't the number itself — it's <span class="mark mark--pink">the decision hiding behind it</span>.
           </p>
           <p>
             Expect direct, honest input rather than avoiding the awkward stuff. I'll
@@ -878,8 +930,11 @@ h2.section__title em{
     </div>
   </section>
 
-  <!-- ============================= TESTIMONIALS ============================= -->
+  <!-- ================================ TESTIMONIALS ================================ -->
   <section class="section section--ink" id="testimonials">
+    <img class="leaf" src="leaf-a.png" alt="" aria-hidden="true"
+         style="top:-70px;right:-130px;width:560px;opacity:.18;filter:brightness(1.35)">
+
     <div class="container">
       <span class="section__label">What people say</span>
       <h2 class="section__title">In their <em>own words.</em></h2>
@@ -918,8 +973,11 @@ h2.section__title em{
     </div>
   </section>
 
-  <!-- ============================= CTA ============================= -->
+  <!-- ================================ CTA ================================ -->
   <section class="section cta" id="contact">
+    <img class="leaf leaf--1" src="leaf-b.png" alt="" aria-hidden="true" width="820" height="218">
+    <img class="leaf leaf--2" src="leaf-a.png" alt="" aria-hidden="true" width="820" height="257">
+
     <div class="container">
       <h2>So — will you <em>flourish?</em></h2>
       <p>
@@ -949,7 +1007,6 @@ h2.section__title em{
   <div class="container">
     <div class="footer__inner">
       <a class="wordmark" href="#top">
-        <!-- the fork motif again, in brand colours, for the dark footer -->
         <svg width="24" height="24" viewBox="0 0 100 100" aria-hidden="true">
           <rect width="100" height="100" rx="22" fill="#DE2D75"/>
           <path d="M22 64 L46 64 L80 28" stroke="#FFFFFF" stroke-width="9" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
@@ -973,19 +1030,14 @@ h2.section__title em{
 
 <script>
 (function () {
-  // Current year in the footer
   var y = document.getElementById('year');
   if (y) y.textContent = new Date().getFullYear();
 
-  // Shadow on the sticky nav once you scroll
   var nav = document.getElementById('nav');
-  var onScroll = function () {
-    nav.classList.toggle('is-stuck', window.scrollY > 12);
-  };
+  var onScroll = function () { nav.classList.toggle('is-stuck', window.scrollY > 12); };
   onScroll();
   window.addEventListener('scroll', onScroll, { passive: true });
 
-  // Gentle reveal-on-scroll
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var items = document.querySelectorAll('.reveal');
   if (reduce || !('IntersectionObserver' in window)) {
