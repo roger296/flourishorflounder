@@ -1,0 +1,1005 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Flourish or Flounder — Cate Hulme, Fractional CFO</title>
+
+<!-- ============================================================
+     EDIT ME (1/5): Search this file for "EDIT ME" to find every
+     placeholder you need to change. There are 5 of them.
+     ============================================================ -->
+<meta name="description" content="Straight-talking financial advice for founders who want to actually understand their numbers and what to do next. Cate Hulme — Fractional CFO, ICAEW Fellow, 20+ years in e-commerce and retail.">
+<meta name="author" content="Cate Hulme">
+<link rel="canonical" href="https://flourishorflounder.co.uk/">
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="Flourish or Flounder — Cate Hulme, Fractional CFO">
+<meta property="og:description" content="Straight-talking financial advice for founders who want to actually understand their numbers and what to do next.">
+<meta property="og:url" content="https://flourishorflounder.co.uk/">
+<meta property="og:locale" content="en_GB">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#FFFFFF">
+<meta property="og:image" content="https://flourishorflounder.co.uk/logo.png">
+
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" href="/favicon.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+/* ------------------------------------------------------------------
+   FLOURISH OR FLOUNDER — single-file site
+   Palette, type scale and spacing are all defined as variables here.
+   Change a value once and it updates everywhere.
+------------------------------------------------------------------ */
+:root{
+  /* Brand palette — sampled directly from the logo.
+     --pink is the vivid logo pink, used for graphics and large display type.
+     --pink-deep is a darkened version used anywhere the text is small, so it
+     stays above the WCAG AA contrast threshold. */
+  --cream:#FFFFFF;        /* page background — white, matching the logo */
+  --sand:#FBF5F7;         /* alternating section tint, a whisper of pink */
+  --ink:#16141A;
+  --ink-soft:#3A3640;
+  --muted:#6B6672;
+  --pink:#DE2D75;
+  --pink-deep:#B01B5B;
+  --pink-wash:#FCE4EF;
+  --green:#45A90B;
+  --green-deep:#357F08;
+  --green-wash:#EAF7E0;
+  --line:#E4DDE2;
+  --line-soft:#EFE9ED;
+
+  --font-display:"Fraunces","Iowan Old Style","Palatino Linotype",Georgia,serif;
+  --font-body:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+
+  --container:1160px;
+  --gutter:clamp(1.25rem,5vw,4rem);
+  --section-y:clamp(4.5rem,10vw,8.5rem);
+  --radius:14px;
+}
+
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+
+body{
+  margin:0;
+  background:var(--cream);
+  color:var(--ink);
+  font-family:var(--font-body);
+  font-size:clamp(1.02rem,.35vw + .96rem,1.14rem);
+  line-height:1.68;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+
+img{max-width:100%;display:block}
+
+h1,h2,h3{
+  font-family:var(--font-display);
+  font-weight:500;
+  line-height:1.08;
+  letter-spacing:-.02em;
+  margin:0;
+  text-wrap:balance;
+}
+
+a{color:inherit}
+p{margin:0 0 1.15em}
+p:last-child{margin-bottom:0}
+
+::selection{background:var(--pink);color:#fff}
+
+:focus-visible{
+  outline:2.5px solid var(--pink);
+  outline-offset:3px;
+  border-radius:3px;
+}
+
+.container{
+  width:100%;
+  max-width:var(--container);
+  margin-inline:auto;
+  padding-inline:var(--gutter);
+}
+
+.skip{
+  position:absolute;left:-9999px;top:0;
+  background:var(--ink);color:var(--cream);
+  padding:.85rem 1.35rem;z-index:200;border-radius:0 0 8px 0;
+  font-weight:600;font-size:.92rem;
+}
+.skip:focus{left:0}
+
+/* ---------------------------------------------- NAV */
+.nav{
+  position:sticky;top:0;z-index:100;
+  background:rgba(255,255,255,.86);
+  backdrop-filter:saturate(180%) blur(14px);
+  -webkit-backdrop-filter:saturate(180%) blur(14px);
+  border-bottom:1px solid transparent;
+  transition:border-color .3s ease, box-shadow .3s ease;
+}
+.nav.is-stuck{
+  border-bottom-color:var(--line-soft);
+  box-shadow:0 1px 24px rgba(22,20,26,.06);
+}
+.nav__inner{
+  display:flex;align-items:center;justify-content:space-between;
+  gap:1.5rem;min-height:70px;
+}
+.wordmark{
+  display:inline-flex;align-items:center;gap:.6rem;
+  text-decoration:none;font-family:var(--font-display);
+  font-weight:600;font-size:1.06rem;letter-spacing:-.015em;
+  white-space:nowrap;
+}
+.wordmark svg{flex:none}
+.wordmark .amp{color:var(--pink);font-style:italic;font-weight:400}
+/* The logo files have a white background baked in; multiply drops it out
+   cleanly over any light section tint. */
+.wordmark img{
+  width:34px;height:auto;flex:none;
+  mix-blend-mode:multiply;
+}
+
+.nav__links{
+  display:flex;align-items:center;gap:2rem;
+  list-style:none;margin:0;padding:0;
+}
+.nav__links a{
+  text-decoration:none;font-size:.9rem;font-weight:500;
+  color:var(--muted);letter-spacing:.005em;
+  padding:.4rem 0;position:relative;transition:color .2s ease;
+}
+.nav__links a::after{
+  content:"";position:absolute;left:0;right:0;bottom:0;height:1.5px;
+  background:var(--pink);transform:scaleX(0);transform-origin:left;
+  transition:transform .28s cubic-bezier(.2,.7,.3,1);
+}
+.nav__links a:hover{color:var(--ink)}
+.nav__links a:hover::after{transform:scaleX(1)}
+@media (max-width:860px){.nav__links{display:none}}
+
+/* ---------------------------------------------- BUTTONS */
+.btn{
+  display:inline-flex;align-items:center;gap:.6rem;
+  font-family:var(--font-body);font-size:.94rem;font-weight:600;
+  text-decoration:none;border:none;cursor:pointer;
+  padding:.82rem 1.5rem;border-radius:100px;
+  letter-spacing:.005em;
+  transition:transform .2s cubic-bezier(.2,.7,.3,1), background-color .2s ease, box-shadow .2s ease;
+}
+.btn--primary{
+  background:var(--pink-deep);color:#fff;
+  box-shadow:0 1px 2px rgba(176,27,91,.2), 0 10px 24px -10px rgba(222,45,117,.65);
+}
+.btn--primary:hover{background:var(--pink);transform:translateY(-2px)}
+.btn--ghost{
+  background:transparent;color:var(--ink);
+  box-shadow:inset 0 0 0 1.5px var(--line);
+}
+.btn--ghost:hover{box-shadow:inset 0 0 0 1.5px var(--ink);transform:translateY(-2px)}
+.btn--lg{padding:1.05rem 2rem;font-size:1rem}
+.btn svg{flex:none;transition:transform .25s cubic-bezier(.2,.7,.3,1)}
+.btn:hover svg{transform:translateX(3px)}
+@media (prefers-reduced-motion:reduce){
+  .btn,.btn svg,.btn:hover,.btn:hover svg{transition:none;transform:none}
+}
+.nav .btn{padding:.62rem 1.25rem;font-size:.88rem;white-space:nowrap}
+@media (max-width:540px){
+  .nav__inner{min-height:62px;gap:.6rem}
+  .wordmark{font-size:.9rem;gap:.45rem}
+  .wordmark svg{width:20px;height:20px}
+  .wordmark img{width:27px}
+  .nav .btn{padding:.52rem .95rem;font-size:.8rem}
+}
+
+/* ---------------------------------------------- HERO */
+.hero{
+  position:relative;
+  padding-block:clamp(2.5rem,6vw,4.5rem) clamp(4rem,9vw,7.5rem);
+  overflow:hidden;
+}
+.hero__grid{
+  display:grid;
+  grid-template-columns:minmax(0,1fr);
+  gap:clamp(2.5rem,5vw,4rem);
+  align-items:center;
+}
+@media (min-width:940px){
+  .hero__grid{grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);align-items:center}
+}
+
+.eyebrow{
+  display:inline-flex;align-items:center;gap:.7rem;
+  font-size:.76rem;font-weight:600;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--pink-deep);
+  margin-bottom:1.6rem;
+}
+.eyebrow::before{
+  content:"";width:28px;height:1.5px;background:var(--pink);
+}
+
+/* The logo IS the headline. The <h1> wraps it so the page still has a
+   proper heading; the alt text carries the words for search and screen
+   readers. Multiply drops the logo's white background out. */
+.hero__logo{margin:0 0 clamp(1.5rem,2.5vw,2.25rem)}
+.hero__logo img{
+  width:min(100%,660px);height:auto;
+  mix-blend-mode:multiply;
+}
+
+.hero__lede{
+  font-size:clamp(1.08rem,.5vw + 1rem,1.28rem);
+  color:var(--ink-soft);max-width:36ch;line-height:1.6;
+  margin-bottom:2.4rem;
+}
+.hero__cta{display:flex;flex-wrap:wrap;gap:.85rem;align-items:center}
+
+/* Diverging-line motif */
+.motif{
+  position:relative;
+  align-self:end;
+}
+.motif svg{width:100%;height:auto;overflow:visible}
+.motif__path{
+  fill:none;stroke-linecap:round;stroke-linejoin:round;
+  stroke-dasharray:1000;stroke-dashoffset:1000;
+  animation:draw 2.2s cubic-bezier(.3,.75,.35,1) .25s forwards;
+}
+@keyframes draw{to{stroke-dashoffset:0}}
+/* the road not taken — dashed, so it can't use the draw animation */
+.motif__path--down{
+  stroke-dasharray:6 7;stroke-dashoffset:0;
+  opacity:0;animation:fadeIn 1.1s ease 1.5s forwards;
+}
+@keyframes fadeIn{to{opacity:1}}
+@media (prefers-reduced-motion:reduce){
+  .motif__path{animation:none;stroke-dashoffset:0}
+  .motif__path--down{animation:none;opacity:1}
+}
+.motif__label{
+  font-family:var(--font-body);font-size:11px;font-weight:600;
+  letter-spacing:.14em;text-transform:uppercase;
+}
+
+.hero__stats{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(min(100%,180px),1fr));
+  gap:clamp(1.75rem,3vw,2.5rem);
+  margin-top:clamp(3rem,6vw,4.5rem);
+  padding-top:clamp(2rem,4vw,2.75rem);
+  border-top:1px solid var(--line);
+}
+.stat__n{
+  font-family:var(--font-display);font-size:clamp(1.9rem,3.4vw,2.7rem);
+  font-weight:500;line-height:1;letter-spacing:-.03em;display:block;
+}
+.stat__n em{color:var(--pink);font-style:normal}
+.stat__l{
+  font-size:.83rem;color:var(--muted);margin-top:.5rem;
+  line-height:1.4;max-width:20ch;
+}
+
+/* ---------------------------------------------- SECTIONS */
+.section{padding-block:var(--section-y)}
+.section--sand{background:var(--sand)}
+.section--ink{background:var(--ink);color:var(--cream)}
+
+.section__label{
+  display:flex;align-items:center;gap:.85rem;
+  font-size:.75rem;font-weight:600;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--muted);
+  margin-bottom:1.5rem;
+}
+.section__label::before{
+  content:"";width:22px;height:1.5px;background:var(--pink);flex:none;
+}
+.section--ink .section__label{color:rgba(250,247,242,.55)}
+
+h2.section__title{
+  font-size:clamp(2.05rem,4.6vw,3.4rem);
+  font-weight:500;letter-spacing:-.03em;line-height:1.04;
+  max-width:19ch;margin-bottom:1.9rem;
+}
+h2.section__title em{
+  font-style:italic;font-weight:400;color:var(--pink-deep);
+}
+.section--ink h2.section__title em{color:#FF8FBB}
+
+.prose{max-width:60ch;color:var(--ink-soft)}
+.prose p + p{margin-top:1.15em}
+.prose strong{font-weight:600;color:var(--ink)}
+.section--ink .prose{color:rgba(250,247,242,.8)}
+.section--ink .prose strong{color:#fff}
+
+.split{
+  display:grid;grid-template-columns:minmax(0,1fr);
+  gap:clamp(2rem,4vw,4.5rem);
+}
+@media (min-width:900px){
+  .split{grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);align-items:start}
+  .split--sticky > :first-child{position:sticky;top:110px}
+}
+
+/* Pull quote */
+.pull{
+  margin:clamp(2.25rem,4vw,3rem) 0 0;
+  padding-left:clamp(1.15rem,2vw,1.75rem);
+  border-left:2.5px solid var(--pink);
+  font-family:var(--font-display);font-style:italic;
+  font-size:clamp(1.2rem,2vw,1.55rem);
+  line-height:1.38;letter-spacing:-.015em;color:var(--ink);
+  max-width:26ch;
+}
+.section--ink .pull{color:var(--cream);border-left-color:#FF8FBB}
+
+/* ---------------------------------------------- CHECKLIST */
+.checklist{list-style:none;margin:0;padding:0;display:grid;gap:.35rem}
+.checklist li{
+  display:grid;grid-template-columns:auto 1fr;gap:1.05rem;
+  align-items:start;
+  padding:1.35rem 0;
+  border-bottom:1px solid var(--line);
+  font-size:clamp(1.02rem,.35vw + .96rem,1.15rem);
+  line-height:1.55;color:var(--ink-soft);
+}
+.checklist li:first-child{border-top:1px solid var(--line)}
+.checklist .tick{
+  width:26px;height:26px;border-radius:50%;
+  background:var(--green-wash);
+  display:grid;place-items:center;margin-top:.18rem;flex:none;
+}
+.checklist .tick svg{width:13px;height:13px}
+
+/* ---------------------------------------------- CARDS */
+.cards{
+  display:grid;gap:1.15rem;
+  grid-template-columns:1fr;
+  margin-top:clamp(2.5rem,4vw,3.5rem);
+}
+@media (min-width:620px){.cards{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.card{
+  background:var(--cream);
+  border:1px solid var(--line-soft);
+  border-radius:var(--radius);
+  padding:clamp(1.6rem,2.5vw,2.1rem);
+  transition:transform .3s cubic-bezier(.2,.7,.3,1), box-shadow .3s ease;
+}
+.section--sand .card{background:var(--cream)}
+.card:hover{border-color:var(--pink-wash);transform:translateY(-3px);box-shadow:0 14px 40px -22px rgba(22,20,26,.32)}
+@media (prefers-reduced-motion:reduce){.card,.card:hover{transition:none;transform:none}}
+.card__n{
+  font-family:var(--font-display);font-size:.85rem;font-weight:600;
+  color:var(--pink);letter-spacing:.1em;display:block;margin-bottom:1rem;
+}
+.card h3{font-size:1.22rem;font-weight:600;margin-bottom:.7rem;letter-spacing:-.02em}
+.card p{font-size:.98rem;color:var(--muted);line-height:1.6;margin:0}
+
+/* ---------------------------------------------- ABOUT */
+.about__portrait{
+  position:relative;
+  border-radius:var(--radius);
+  overflow:hidden;
+  background:var(--sand);
+  aspect-ratio:4/5;
+  box-shadow:0 20px 60px -30px rgba(22,20,26,.4);
+}
+.about__portrait img{width:100%;height:100%;object-fit:cover}
+.about__portrait figcaption{
+  position:absolute;inset:auto 0 0 0;
+  padding:1.5rem 1.35rem 1.15rem;
+  background:linear-gradient(transparent,rgba(22,20,26,.85));
+  color:var(--cream);font-size:.85rem;letter-spacing:.02em;
+}
+.about__portrait figcaption b{display:block;font-weight:600;font-size:1rem;margin-bottom:.15rem}
+
+/* Placeholder shown until a real photo is dropped in */
+.portrait-placeholder{
+  position:absolute;inset:0;
+  display:grid;place-content:center;justify-items:center;gap:.85rem;
+  text-align:center;padding:2rem;
+  background:
+    repeating-linear-gradient(-45deg,var(--sand) 0 12px,#F2E6EC 12px 24px);
+  color:var(--muted);
+}
+.portrait-placeholder svg{opacity:.4}
+.portrait-placeholder span{
+  font-size:.78rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;
+  line-height:1.6;max-width:22ch;
+}
+
+.creds{
+  list-style:none;margin:2rem 0 0;padding:0;
+  display:flex;flex-wrap:wrap;gap:.55rem;
+}
+.creds li{
+  font-size:.82rem;font-weight:500;color:var(--ink-soft);
+  background:var(--cream);border:1px solid var(--line);
+  padding:.45rem .95rem;border-radius:100px;
+}
+.section--sand .creds li{background:var(--cream)}
+
+/* ---------------------------------------------- TESTIMONIALS */
+.quotes{
+  display:grid;gap:1.15rem;
+  grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));
+  margin-top:clamp(2.5rem,4vw,3.5rem);
+}
+.quote{
+  background:rgba(250,247,242,.055);
+  border:1px solid rgba(250,247,242,.13);
+  border-radius:var(--radius);
+  padding:clamp(1.7rem,2.5vw,2.15rem);
+  display:flex;flex-direction:column;
+}
+.quote__mark{
+  font-family:var(--font-display);font-size:3rem;line-height:.6;
+  color:#FF8FBB;margin-bottom:.9rem;display:block;
+}
+.quote p{
+  font-size:1.03rem;line-height:1.6;color:rgba(250,247,242,.88);
+  margin:0 0 1.5rem;flex:1;
+}
+.quote footer{
+  font-size:.84rem;color:rgba(250,247,242,.55);line-height:1.5;
+  padding-top:1.1rem;border-top:1px solid rgba(250,247,242,.13);
+}
+.quote footer b{display:block;color:var(--cream);font-weight:600;font-size:.92rem}
+
+.placeholder-note{
+  display:inline-block;margin-top:2rem;
+  font-size:.8rem;color:rgba(250,247,242,.5);
+  border:1px dashed rgba(250,247,242,.28);
+  padding:.6rem 1rem;border-radius:8px;
+}
+
+/* ---------------------------------------------- CTA */
+.cta{text-align:center;padding-block:clamp(5rem,11vw,9rem)}
+.cta h2{
+  font-size:clamp(2.3rem,6vw,4.2rem);font-weight:400;
+  letter-spacing:-.035em;line-height:1.02;margin-bottom:1.4rem;
+  max-width:16ch;margin-inline:auto;
+}
+.cta h2 em{font-style:italic;color:var(--pink-deep)}
+.cta p{
+  max-width:44ch;margin:0 auto 2.6rem;color:var(--ink-soft);
+  font-size:clamp(1.05rem,.4vw + 1rem,1.2rem);
+}
+.cta__row{display:flex;flex-wrap:wrap;gap:.9rem;justify-content:center}
+
+/* ---------------------------------------------- FOOTER */
+.footer{
+  background:var(--ink);color:rgba(250,247,242,.55);
+  padding-block:clamp(3rem,6vw,4.5rem);
+  font-size:.88rem;
+}
+.footer__inner{
+  display:flex;flex-wrap:wrap;gap:1.75rem 2.5rem;
+  justify-content:space-between;align-items:center;
+}
+.footer a{color:rgba(250,247,242,.78);text-decoration:none;transition:color .2s}
+.footer a:hover{color:#FF8FBB}
+.footer__links{display:flex;flex-wrap:wrap;gap:1.6rem}
+.footer .wordmark{color:var(--cream);font-size:1rem}
+.footer .wordmark .amp{color:#FF8FBB}
+.footer__legal{width:100%;padding-top:1.75rem;margin-top:.5rem;
+  border-top:1px solid rgba(250,247,242,.12);font-size:.8rem;
+  color:rgba(250,247,242,.4);}
+
+/* ---------------------------------------------- REVEAL */
+.reveal{opacity:0;transform:translateY(22px)}
+.reveal.is-in{
+  opacity:1;transform:none;
+  transition:opacity .75s cubic-bezier(.2,.7,.3,1), transform .75s cubic-bezier(.2,.7,.3,1);
+}
+@media (prefers-reduced-motion:reduce){
+  .reveal{opacity:1;transform:none}
+  .reveal.is-in{transition:none}
+}
+</style>
+</head>
+<body>
+
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="nav" id="nav">
+  <div class="container nav__inner">
+    <a class="wordmark" href="#top" aria-label="Flourish or Flounder — home">
+      <img src="mark.png" alt="" width="256" height="209">
+      Flourish <span class="amp">or</span> Flounder
+    </a>
+
+    <nav aria-label="Main">
+      <ul class="nav__links">
+        <li><a href="#what-i-do">What I do</a></li>
+        <li><a href="#who-for">Who it's for</a></li>
+        <li><a href="#why-me">Why me</a></li>
+        <li><a href="#about">About</a></li>
+      </ul>
+    </nav>
+
+    <!-- EDIT ME (2/5): replace the email address in every mailto: link -->
+    <a class="btn btn--primary" href="mailto:hello@flourishorflounder.co.uk?subject=Enquiry%20via%20website">
+      Get in touch
+    </a>
+  </div>
+</header>
+
+<main id="main">
+
+  <!-- ============================= HERO ============================= -->
+  <section class="hero" id="top">
+    <div class="container">
+
+      <span class="eyebrow">Fractional CFO &middot; Board Advisor &middot; NED</span>
+
+      <h1 class="hero__logo">
+        <img src="logo.png" width="1100" height="678" fetchpriority="high"
+             alt="Flourish or Flounder — which will your business do?">
+      </h1>
+
+      <div class="hero__grid">
+
+        <div>
+          <p class="hero__lede">
+            Straight-talking advice for founders who want to actually understand
+            their numbers — and what they should do next.
+          </p>
+
+          <div class="hero__cta">
+            <a class="btn btn--primary btn--lg" href="#contact">
+              Let's talk
+              <svg width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                <path d="M2 8h12M9 3l5 5-5 5" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </a>
+            <a class="btn btn--ghost btn--lg" href="#what-i-do">How I work</a>
+          </div>
+        </div>
+
+        <!-- Diverging-line motif: one path climbs, one falls -->
+        <div class="motif" aria-hidden="true">
+          <svg viewBox="0 0 420 300" role="presentation">
+            <line x1="0" y1="299" x2="420" y2="299" stroke="#E4DDE2" stroke-width="1.5"/>
+            <line x1="1" y1="0" x2="1" y2="300" stroke="#E4DDE2" stroke-width="1.5"/>
+
+            <!-- shared stem -->
+            <path class="motif__path" d="M10 215 C 60 205, 100 195, 150 175"
+                  stroke="#6B6672" stroke-width="2.5"/>
+            <!-- flourish -->
+            <path class="motif__path" d="M150 175 C 210 150, 250 105, 290 62 S 370 26, 405 18"
+                  stroke="#DE2D75" stroke-width="3.5"/>
+            <!-- flounder -->
+            <path class="motif__path--down" d="M150 175 C 200 205, 240 235, 290 252 S 370 268, 405 272"
+                  fill="none" stroke="#C9C2CB" stroke-width="2.5" stroke-linecap="round"/>
+
+            <circle cx="150" cy="175" r="5" fill="#FFFFFF" stroke="#16141A" stroke-width="2.2"/>
+            <circle cx="405" cy="18" r="6" fill="#DE2D75"/>
+
+            <text class="motif__label" x="405" y="42" text-anchor="end" fill="#B01B5B">Flourish</text>
+            <text class="motif__label" x="405" y="292" text-anchor="end" fill="#9A93A0">Flounder</text>
+            <text class="motif__label" x="140" y="158" text-anchor="end" fill="#6B6672" font-size="10">The decision</text>
+          </svg>
+        </div>
+
+      </div>
+
+      <div class="hero__stats reveal">
+        <div class="stat">
+          <span class="stat__n"><em>20</em>+ years</span>
+          <span class="stat__l">as a CFO in e-commerce, retail and multi-channel</span>
+        </div>
+        <div class="stat">
+          <span class="stat__n"><em>1</em> AIM flotation</span>
+          <span class="stat__l">steered from the inside, start to bell</span>
+        </div>
+        <div class="stat">
+          <span class="stat__n"><em>200</em>%+ growth</span>
+          <span class="stat__l">in the room as the numbers scaled</span>
+        </div>
+        <div class="stat">
+          <span class="stat__n">Both <em>sides</em></span>
+          <span class="stat__l">of the table on acquisitions and disposals</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================= WHAT I DO ============================= -->
+  <section class="section section--sand" id="what-i-do">
+    <div class="container">
+      <div class="split split--sticky">
+        <div>
+          <span class="section__label">What I do</span>
+          <h2 class="section__title">No jargon. No 40-page reports <em>nobody reads.</em></h2>
+        </div>
+
+        <div class="prose reveal">
+          <p>
+            Most finance advice for founders is either too basic to be useful, or so
+            full of jargon it might as well be a foreign language.
+          </p>
+          <p>
+            I've spent 20 years as a CFO — through start-up, high growth, acquisitions,
+            an AIM flotation, and exits — mostly in e-commerce and retail businesses
+            just like yours. <strong>I know what it's like to grow fast and still stare
+            at the bank balance wondering where the money went.</strong>
+          </p>
+          <p>
+            Now I work with founder-led businesses to build genuine cash flow clarity,
+            stronger financial foundations, and — when the time comes — a business
+            that's actually ready to sell.
+          </p>
+
+          <p class="pull">Just the numbers, explained properly, and a plan you can act on.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================= WHO IT'S FOR ============================= -->
+  <section class="section" id="who-for">
+    <div class="container">
+      <div class="split split--sticky">
+        <div>
+          <span class="section__label">Who this is for</span>
+          <h2 class="section__title">You might <em>recognise yourself</em> here.</h2>
+        </div>
+
+        <div class="reveal">
+          <ul class="checklist">
+            <li>
+              <span class="tick" aria-hidden="true">
+                <svg viewBox="0 0 14 14" fill="none"><path d="M2 7.4 5.3 10.6 12 3.4" stroke="#357F08" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </span>
+              <span>Revenue's growing but cash always feels tighter than it should.</span>
+            </li>
+            <li>
+              <span class="tick" aria-hidden="true">
+                <svg viewBox="0 0 14 14" fill="none"><path d="M2 7.4 5.3 10.6 12 3.4" stroke="#357F08" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </span>
+              <span>You've never had anyone explain your numbers in a way that actually made sense.</span>
+            </li>
+            <li>
+              <span class="tick" aria-hidden="true">
+                <svg viewBox="0 0 14 14" fill="none"><path d="M2 7.4 5.3 10.6 12 3.4" stroke="#357F08" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </span>
+              <span>You're managing multiple sales channels and honestly aren't sure which ones are making you money.</span>
+            </li>
+            <li>
+              <span class="tick" aria-hidden="true">
+                <svg viewBox="0 0 14 14" fill="none"><path d="M2 7.4 5.3 10.6 12 3.4" stroke="#357F08" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </span>
+              <span>You're thinking about a sale or investment in the next few years and have no idea if your numbers are ready.</span>
+            </li>
+          </ul>
+
+          <p class="pull">If any of that sounds familiar — reach out.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================= BREADTH ============================= -->
+  <section class="section section--sand" id="breadth">
+    <div class="container">
+      <div class="split split--sticky">
+        <div>
+          <span class="section__label">Where I'm most useful</span>
+          <h2 class="section__title">Someone who's <em>been through it</em> before, beside you.</h2>
+        </div>
+
+        <div class="prose reveal">
+          <p>
+            Being a founder can be tough. Why not have someone who's done it before
+            alongside you — whether that's rapid growth, fundraising, systems
+            improvements, or selling a business?
+          </p>
+          <p>
+            Cash flow and exit-readiness are where most people find me, but 20 years
+            across start-up, high growth, acquisitions, an AIM flotation and multiple
+            exits means the list is longer than that. I've raised debt and equity
+            funding, negotiated acquisitions and disposals on both sides of the table,
+            built stock forecasting and logistics systems from scratch, cut costs,
+            restructured teams, and sat on boards navigating everything from rebrands
+            to shareholder disputes.
+          </p>
+          <p>
+            <strong>If your problem is "we're growing but something feels off and I
+            can't quite name it," that's usually exactly the kind of mess I'm most
+            useful in.</strong> Multi-currency, multi-channel, multi-warehouse
+            complexity is where I've spent most of my career — so if your finances
+            have outgrown a single neat spreadsheet, that's familiar territory, not a
+            special case.
+          </p>
+        </div>
+      </div>
+
+      <div class="cards reveal">
+        <article class="card">
+          <span class="card__n">01</span>
+          <h3>Cash flow clarity</h3>
+          <p>Understand where the money actually goes, which channels earn their keep, and what your numbers are telling you before your bank balance does.</p>
+        </article>
+        <article class="card">
+          <span class="card__n">02</span>
+          <h3>Exit readiness</h3>
+          <p>Getting a founder-led business into the shape a buyer or investor expects — long before you start the conversation.</p>
+        </article>
+        <article class="card">
+          <span class="card__n">03</span>
+          <h3>Funding &amp; deals</h3>
+          <p>Debt and equity raises, acquisitions and disposals, due diligence — negotiated from both sides of the table.</p>
+        </article>
+        <article class="card">
+          <span class="card__n">04</span>
+          <h3>Board &amp; governance</h3>
+          <p>Non-executive and board advisory roles for founder-led businesses, plus mentoring for founders and finance teams.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================= WHY ME ============================= -->
+  <section class="section" id="why-me">
+    <div class="container">
+      <div class="split split--sticky">
+        <div>
+          <span class="section__label">Why work with me</span>
+          <h2 class="section__title">I'm not guessing what a buyer will care about. <em>I've been one.</em></h2>
+        </div>
+
+        <div class="prose reveal">
+          <p>
+            Most advisers have either done the operator job or the advisory job —
+            rarely both, and rarely across the full lifecycle of a business.
+          </p>
+          <p>
+            I've been the CFO in the room during 200%+ growth, the one steering a
+            flotation, the one restructuring a business that was struggling, and the
+            one on the other side of the table doing due diligence on an acquisition.
+            <strong>That means I'm not guessing what a buyer, investor, or board will
+            actually care about — I've been all three.</strong>
+          </p>
+          <p>
+            People I've worked with talk about being "comfortable in both the detail
+            and the strategic input," about learning to run their own numbers without
+            needing me anymore, and about a CFO who genuinely cares rather than one
+            who's just billing hours.
+          </p>
+          <p>
+            If you want someone who'll hand you a report, there are plenty of options.
+            If you want someone who'll make sure you actually understand what's
+            happening in your business — and can hold your own in that boardroom
+            conversation without me in the room — that's the bit I think I do
+            differently.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================= ABOUT ============================= -->
+  <section class="section section--sand" id="about">
+    <div class="container">
+      <div class="split">
+        <div class="reveal">
+          <figure class="about__portrait" style="margin:0">
+            <!-- ============================================================
+                 EDIT ME (3/5): PORTRAIT
+                 When you have a photo, save it next to this file as
+                 "cate.jpg" (portrait orientation, roughly 800 x 1000px),
+                 then DELETE the <div class="portrait-placeholder"> block
+                 below and UNCOMMENT the <img> line.
+                 ============================================================ -->
+            <!-- <img src="cate.jpg" alt="Cate Hulme, Fractional CFO"> -->
+
+            <div class="portrait-placeholder">
+              <svg width="42" height="42" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <circle cx="12" cy="8.5" r="3.6" stroke="#6B6672" stroke-width="1.5"/>
+                <path d="M4.5 20c0-4 3.4-6.4 7.5-6.4s7.5 2.4 7.5 6.4" stroke="#6B6672" stroke-width="1.5" stroke-linecap="round"/>
+              </svg>
+              <span>Portrait goes here — see "EDIT ME (3/5)" in the file</span>
+            </div>
+
+            <figcaption>
+              <b>Cate Hulme</b>
+              Fractional CFO &middot; ICAEW Fellow
+            </figcaption>
+          </figure>
+        </div>
+
+        <div>
+          <span class="section__label">A bit about me</span>
+          <h2 class="section__title">I'm <em>Cate Hulme.</em></h2>
+
+          <div class="prose">
+            <p>
+              20+ years as a CFO across e-commerce, retail, and multi-channel
+              businesses, an ICAEW Fellow, and someone who's sat on both sides of the
+              table in acquisitions, disposals, and a stock market flotation.
+            </p>
+            <p>
+              I currently work as Board Advisor, Non-Executive Director or Fractional
+              CFO across a small portfolio of founder-led businesses, and I mentor
+              founders and finance teams on behalf of investors.
+            </p>
+          </div>
+
+          <ul class="creds">
+            <li>ICAEW Fellow</li>
+            <li>Fractional CFO</li>
+            <li>Non-Executive Director</li>
+            <li>Board Advisor</li>
+            <li>E-commerce &amp; retail</li>
+            <li>M&amp;A — buy &amp; sell side</li>
+            <li>AIM flotation</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================= HOW I WORK ============================= -->
+  <section class="section" id="how-i-work">
+    <div class="container">
+      <div class="split split--sticky">
+        <div>
+          <span class="section__label">What it's like to work with me</span>
+          <h2 class="section__title">Explained the way I'd explain it to <em>a mate over coffee.</em></h2>
+        </div>
+
+        <div class="prose reveal">
+          <p>
+            I'll walk you through your own numbers with a whiteboard, a napkin,
+            whatever's to hand — <strong>until it actually clicks, not just until
+            you've nodded politely enough times that I move on.</strong>
+          </p>
+          <p>
+            I ask a lot of "why" questions, because half the time the real problem
+            isn't the number itself — it's the decision hiding behind it.
+          </p>
+          <p>
+            Expect direct, honest input rather than avoiding the awkward stuff. I'll
+            tell you when something's a genuine problem and when it's fine to leave
+            alone — and I'd rather have that conversation early and informally than
+            let it become a crisis you find out about from your bank balance.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================= TESTIMONIALS ============================= -->
+  <section class="section section--ink" id="testimonials">
+    <div class="container">
+      <span class="section__label">What people say</span>
+      <h2 class="section__title">In their <em>own words.</em></h2>
+
+      <!-- ============================================================
+           EDIT ME (4/5): TESTIMONIALS
+           Replace the text inside each <p> with a real LinkedIn
+           recommendation, and the <b> / role line beneath it.
+           Delete any card you don't need — the grid re-flows.
+           Also delete the "placeholder-note" paragraph further down.
+           ============================================================ -->
+      <div class="quotes reveal">
+        <blockquote class="quote">
+          <span class="quote__mark" aria-hidden="true">&ldquo;</span>
+          <p>Comfortable in both the detail and the strategic input — she could go from the ledger to the boardroom without missing a beat.</p>
+          <footer><b>[ Name ]</b>[ Role, Company ] — placeholder</footer>
+        </blockquote>
+
+        <blockquote class="quote">
+          <span class="quote__mark" aria-hidden="true">&ldquo;</span>
+          <p>She taught us to run our own numbers, to the point we didn't need her in the room anymore. That's a rare thing in an adviser.</p>
+          <footer><b>[ Name ]</b>[ Role, Company ] — placeholder</footer>
+        </blockquote>
+
+        <blockquote class="quote">
+          <span class="quote__mark" aria-hidden="true">&ldquo;</span>
+          <p>A CFO who genuinely cares rather than one who's just billing hours. She told us the awkward things early, and we were better for it.</p>
+          <footer><b>[ Name ]</b>[ Role, Company ] — placeholder</footer>
+        </blockquote>
+      </div>
+
+      <p class="placeholder-note">
+        These three quotes are placeholders drawn from your own copy — swap them for
+        real LinkedIn recommendations, then delete this note.
+      </p>
+    </div>
+  </section>
+
+  <!-- ============================= CTA ============================= -->
+  <section class="section cta" id="contact">
+    <div class="container">
+      <h2>So — will you <em>flourish?</em></h2>
+      <p>
+        If something in your business feels off and you can't quite name it, that's
+        a good enough reason to get in touch. No pitch, no 40-page report. Just a
+        conversation.
+      </p>
+      <div class="cta__row">
+        <!-- EDIT ME (2/5 cont.): email address -->
+        <a class="btn btn--primary btn--lg" href="mailto:hello@flourishorflounder.co.uk?subject=Enquiry%20via%20website">
+          Email me
+          <svg width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+            <path d="M2 8h12M9 3l5 5-5 5" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </a>
+        <!-- EDIT ME (5/5): your LinkedIn profile URL, in both places -->
+        <a class="btn btn--ghost btn--lg" href="https://www.linkedin.com/in/YOUR-LINKEDIN-HANDLE/" target="_blank" rel="noopener">
+          Connect on LinkedIn
+        </a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer__inner">
+      <a class="wordmark" href="#top">
+        <!-- the fork motif again, in brand colours, for the dark footer -->
+        <svg width="24" height="24" viewBox="0 0 100 100" aria-hidden="true">
+          <rect width="100" height="100" rx="22" fill="#DE2D75"/>
+          <path d="M22 64 L46 64 L80 28" stroke="#FFFFFF" stroke-width="9" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M46 64 L74 86" stroke="#FFFFFF" stroke-width="9" fill="none" stroke-linecap="round" stroke-linejoin="round" opacity=".45"/>
+        </svg>
+        Flourish <span class="amp">or</span> Flounder
+      </a>
+
+      <nav class="footer__links" aria-label="Footer">
+        <a href="mailto:hello@flourishorflounder.co.uk">hello@flourishorflounder.co.uk</a>
+        <a href="https://www.linkedin.com/in/YOUR-LINKEDIN-HANDLE/" target="_blank" rel="noopener">LinkedIn</a>
+      </nav>
+    </div>
+
+    <p class="footer__legal">
+      &copy; <span id="year">2026</span> Cate Hulme &middot; Flourish or Flounder.
+      Fractional CFO, Board Advisor and Non-Executive Director. ICAEW Fellow.
+    </p>
+  </div>
+</footer>
+
+<script>
+(function () {
+  // Current year in the footer
+  var y = document.getElementById('year');
+  if (y) y.textContent = new Date().getFullYear();
+
+  // Shadow on the sticky nav once you scroll
+  var nav = document.getElementById('nav');
+  var onScroll = function () {
+    nav.classList.toggle('is-stuck', window.scrollY > 12);
+  };
+  onScroll();
+  window.addEventListener('scroll', onScroll, { passive: true });
+
+  // Gentle reveal-on-scroll
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var items = document.querySelectorAll('.reveal');
+  if (reduce || !('IntersectionObserver' in window)) {
+    items.forEach(function (el) { el.classList.add('is-in'); });
+    return;
+  }
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) {
+      if (e.isIntersecting) { e.target.classList.add('is-in'); io.unobserve(e.target); }
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+  items.forEach(function (el) { io.observe(el); });
+})();
+</script>
+
+</body>
+</html>

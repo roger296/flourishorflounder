@@ -1,0 +1,7 @@
+# Keep text files as LF everywhere so Windows, Linux and the server agree.
+* text=auto eol=lf
+
+*.png binary
+*.ico binary
+*.jpg binary
+*.jpeg binary
