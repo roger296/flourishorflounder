@@ -7,3 +7,6 @@ desktop.ini
 
 # Dropbox conflict copies
 *conflicted copy*
+
+# files the Claude desktop app drops here when it delivers a download
+Claude outputs/

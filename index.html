@@ -52,12 +52,13 @@
   --pink-deep:#B01B5B;
   --pink-wash:#FCE4EF;
   --pink-light:#FF8FBB;      /* accents on the dark section */
-  --pink-on-green:#FFA8CB;   /* lifted so it clears 3:1 on the green ground */
 
   --green:#45A90B;
   --green-deep:#357F08;
-  --green-dark:#2E6F08;    /* full-section ground, 6.2:1 against white */
-  --green-wash:#EAF7E0;
+  --green-dark:#2E6F08;
+  --green-wash:#EDF8E4;    /* callout-box fill */
+  --green-edge:#B7DE96;    /* callout-box border, resting state */
+  --green-ink:#22400A;     /* text on the wash — 11:1, comfortably AA */
 
   --line:#E9E1E6;
   --line-soft:#F1EBEE;
@@ -251,7 +252,6 @@ h1,h2,h3{
 .section{padding-block:var(--section-y);position:relative;overflow:hidden}
 .section--sand{background:var(--sand)}
 .section--ink{background:var(--ink);color:#fff}
-.section--green{background:var(--green-dark);color:#fff}
 
 .section__label{
   display:flex;align-items:center;gap:.85rem;
@@ -261,9 +261,8 @@ h1,h2,h3{
   margin-bottom:1.35rem;
 }
 .section__label::before{content:"";width:26px;height:2.5px;background:var(--pink);flex:none;border-radius:2px}
-.section--ink .section__label,.section--green .section__label{color:#fff}
+.section--ink .section__label{color:#fff}
 .section--ink .section__label::before{background:var(--pink-light)}
-.section--green .section__label::before{background:var(--pink-on-green)}
 
 h2.section__title{
   font-size:clamp(2.1rem,4.8vw,3.5rem);
@@ -272,13 +271,12 @@ h2.section__title{
 }
 h2.section__title em{font-style:italic;font-weight:400;color:var(--pink-deep)}
 .section--ink h2.section__title em{color:var(--pink-light)}
-.section--green h2.section__title em{color:var(--pink-on-green)}
 
 .prose{max-width:60ch;color:var(--ink-soft)}
 .prose p + p{margin-top:1.15em}
 .prose strong{font-weight:600;color:var(--ink)}
-.section--ink .prose,.section--green .prose{color:rgba(255,255,255,.86)}
-.section--ink .prose strong,.section--green .prose strong{color:#fff}
+.section--ink .prose{color:rgba(255,255,255,.86)}
+.section--ink .prose strong{color:#fff}
 
 /* Two-column split. --flip puts the heading on the right on wide
    screens, so consecutive sections don't march down in lockstep. */
@@ -293,14 +291,21 @@ h2.section__title em{font-style:italic;font-weight:400;color:var(--pink-deep)}
 
 .pull{
   margin:clamp(2.25rem,4vw,3rem) 0 0;
-  padding-left:clamp(1.15rem,2vw,1.75rem);
-  border-left:3px solid var(--pink);
+  padding:clamp(1.2rem,2vw,1.5rem) clamp(1.3rem,2.2vw,1.75rem);
+  background:var(--green-wash);
+  border-left:6px solid var(--green);
+  border-radius:0 var(--radius) var(--radius) 0;
   font-family:var(--font-display);font-style:italic;
-  font-size:clamp(1.2rem,2vw,1.55rem);
-  line-height:1.38;letter-spacing:-.015em;color:var(--ink);max-width:26ch;
+  font-size:clamp(1.18rem,1.9vw,1.5rem);
+  line-height:1.36;letter-spacing:-.015em;color:var(--green-ink);
+  max-width:30ch;
+  transform:rotate(-.5deg);
 }
-.section--ink .pull{color:#fff;border-left-color:var(--pink-light)}
-.section--green .pull{color:#fff;border-left-color:var(--pink-on-green)}
+@media (prefers-reduced-motion:reduce){.pull{transform:none}}
+.section--ink .pull{
+  background:rgba(69,169,11,.14);border-left-color:var(--green);
+  color:#fff;transform:none;
+}
 
 /* =============================================== HERO */
 .hero{position:relative;padding-block:clamp(2.5rem,6vw,4.5rem) clamp(4rem,9vw,7rem);overflow:hidden}
@@ -378,22 +383,34 @@ h2.section__title em{font-style:italic;font-weight:400;color:var(--pink-deep)}
 }
 
 /* =============================================== CHECKLIST (green section) */
-.checklist{list-style:none;margin:0;padding:0;display:grid;gap:.3rem}
-.checklist li{
-  display:grid;grid-template-columns:auto 1fr;gap:1.05rem;align-items:start;
-  padding:1.4rem 0;border-bottom:1px solid rgba(255,255,255,.22);
-  font-size:clamp(1.02rem,.35vw + .96rem,1.16rem);
-  line-height:1.55;color:rgba(255,255,255,.92);
+/* Key points, each in its own green box. Slight opposing tilts so the
+   grid reads as hand-placed rather than machined. */
+.keypoints{list-style:none;margin:0;padding:0;display:grid;gap:1rem}
+.keypoint{
+  display:grid;grid-template-columns:auto 1fr;gap:1rem;align-items:start;
+  background:var(--green-wash);
+  border:2.5px solid var(--green-edge);
+  border-radius:var(--radius);
+  padding:1.4rem 1.5rem;
+  font-size:clamp(1rem,.3vw + .95rem,1.1rem);
+  line-height:1.55;color:var(--green-ink);
+  transition:transform .3s cubic-bezier(.2,.7,.3,1), border-color .3s ease, box-shadow .3s ease;
 }
-.checklist li:first-child{border-top:1px solid rgba(255,255,255,.22)}
-.checklist .tick{
-  width:28px;height:28px;border-radius:50%;background:#fff;
-  display:grid;place-items:center;margin-top:.15rem;flex:none;
-  transform:rotate(-4deg);
+.keypoint:nth-child(odd){transform:rotate(-.7deg)}
+.keypoint:nth-child(even){transform:rotate(.7deg)}
+.keypoint:hover{
+  transform:rotate(0deg) translateY(-3px);
+  border-color:var(--green);
+  box-shadow:0 16px 38px -22px rgba(46,111,8,.6);
 }
-.checklist li:nth-child(even) .tick{transform:rotate(5deg)}
-.checklist .tick svg{width:14px;height:14px}
-@media (prefers-reduced-motion:reduce){.checklist .tick{transform:none}}
+@media (prefers-reduced-motion:reduce){
+  .keypoint,.keypoint:hover{transform:none;transition:none}
+}
+.keypoint .tick{
+  width:30px;height:30px;border-radius:50%;background:var(--green-deep);
+  display:grid;place-items:center;margin-top:.1rem;flex:none;
+}
+.keypoint .tick svg{width:15px;height:15px}
 
 /* =============================================== CARDS */
 .cards{display:grid;gap:1.15rem;grid-template-columns:1fr;margin-top:clamp(2.5rem,4vw,3.5rem)}
@@ -675,13 +692,11 @@ h2.section__title em{font-style:italic;font-weight:400;color:var(--pink-deep)}
   </section>
 
   <!-- ================================ WHO IT'S FOR (green) ================================ -->
-  <section class="section section--green" id="who-for">
-    <!-- anchored to the section's bottom edge: the nav would otherwise sit
-         over a leaf placed at the top -->
+  <section class="section" id="who-for">
+    <!-- anchored to the section's bottom edge: the sticky nav would sit over
+         a leaf placed at the top -->
     <img class="leaf" src="leaf-a.png" alt="" aria-hidden="true"
-         style="bottom:-60px;right:-100px;width:620px;opacity:.3;filter:brightness(1.6)">
-    <img class="leaf leaf--flip" src="leaf-c.png" alt="" aria-hidden="true"
-         style="bottom:70px;left:-60px;width:230px;opacity:.28;filter:brightness(1.6)">
+         style="bottom:-70px;right:-110px;width:560px;opacity:.4">
 
     <div class="container">
       <div class="split split--sticky">
@@ -692,28 +707,28 @@ h2.section__title em{font-style:italic;font-weight:400;color:var(--pink-deep)}
         </div>
 
         <div class="split__body reveal">
-          <ul class="checklist">
-            <li>
+          <ul class="keypoints">
+            <li class="keypoint">
               <span class="tick" aria-hidden="true">
-                <svg viewBox="0 0 14 14" fill="none"><path d="M2 7.4 5.3 10.6 12 3.4" stroke="#2E6F08" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                <svg viewBox="0 0 14 14" fill="none"><path d="M2 7.4 5.3 10.6 12 3.4" stroke="#FFFFFF" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
               </span>
               <span>Revenue's growing but cash always feels tighter than it should.</span>
             </li>
-            <li>
+            <li class="keypoint">
               <span class="tick" aria-hidden="true">
-                <svg viewBox="0 0 14 14" fill="none"><path d="M2 7.4 5.3 10.6 12 3.4" stroke="#2E6F08" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                <svg viewBox="0 0 14 14" fill="none"><path d="M2 7.4 5.3 10.6 12 3.4" stroke="#FFFFFF" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
               </span>
-              <span>You've never had anyone explain your numbers in a way that <span class="mark mark--white">actually made sense</span>.</span>
+              <span>You've never had anyone explain your numbers in a way that <span class="mark mark--green">actually made sense</span>.</span>
             </li>
-            <li>
+            <li class="keypoint">
               <span class="tick" aria-hidden="true">
-                <svg viewBox="0 0 14 14" fill="none"><path d="M2 7.4 5.3 10.6 12 3.4" stroke="#2E6F08" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                <svg viewBox="0 0 14 14" fill="none"><path d="M2 7.4 5.3 10.6 12 3.4" stroke="#FFFFFF" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
               </span>
               <span>You're managing multiple sales channels and honestly aren't sure which ones are making you money.</span>
             </li>
-            <li>
+            <li class="keypoint">
               <span class="tick" aria-hidden="true">
-                <svg viewBox="0 0 14 14" fill="none"><path d="M2 7.4 5.3 10.6 12 3.4" stroke="#2E6F08" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                <svg viewBox="0 0 14 14" fill="none"><path d="M2 7.4 5.3 10.6 12 3.4" stroke="#FFFFFF" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
               </span>
               <span>You're thinking about a sale or investment in the next few years and have no idea if your numbers are ready.</span>
             </li>
@@ -726,7 +741,7 @@ h2.section__title em{font-style:italic;font-weight:400;color:var(--pink-deep)}
   </section>
 
   <!-- ================================ BREADTH ================================ -->
-  <section class="section" id="breadth">
+  <section class="section section--sand" id="breadth">
     <img class="leaf" src="leaf-c.png" alt="" aria-hidden="true"
          style="top:40px;left:-90px;width:260px;transform:rotate(-14deg);opacity:.5">
 
@@ -789,7 +804,7 @@ h2.section__title em{font-style:italic;font-weight:400;color:var(--pink-deep)}
   </section>
 
   <!-- ================================ WHY ME (flipped) ================================ -->
-  <section class="section section--sand" id="why-me">
+  <section class="section" id="why-me">
     <img class="leaf leaf--flip" src="leaf-a.png" alt="" aria-hidden="true"
          style="bottom:-80px;left:-140px;width:540px;opacity:.36">
 
@@ -832,7 +847,7 @@ h2.section__title em{font-style:italic;font-weight:400;color:var(--pink-deep)}
   </section>
 
   <!-- ================================ ABOUT ================================ -->
-  <section class="section" id="about">
+  <section class="section section--sand" id="about">
     <div class="container">
       <div class="split">
         <div class="reveal">
@@ -897,7 +912,7 @@ h2.section__title em{font-style:italic;font-weight:400;color:var(--pink-deep)}
   </section>
 
   <!-- ================================ HOW I WORK (flipped) ================================ -->
-  <section class="section section--sand" id="how-i-work">
+  <section class="section" id="how-i-work">
     <img class="leaf" src="leaf-c.png" alt="" aria-hidden="true"
          style="bottom:30px;right:-80px;width:250px;transform:scaleX(-1) rotate(12deg);opacity:.45">
 
