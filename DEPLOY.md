@@ -7,17 +7,18 @@ database. That makes this about as simple as web hosting gets.
 
 | File | What it is | Size |
 |------|-----------|------|
-| `index.html` | The entire site — all content, styling and behaviour | ~40KB |
-| `logo.png` | Your full logo lockup, used as the hero headline | ~180KB |
-| `mark.png` | The FOF mark, used small in the navigation bar | ~25KB |
-| `favicon.png` | Browser tab icon | ~17KB |
-| `favicon.ico` | Browser tab icon, for older browsers | ~6KB |
-| `apple-touch-icon.png` | Icon when someone saves the site to an iPhone home screen | ~12KB |
+| `index.html` | The entire site — all content, styling and behaviour | ~50KB |
+| `logo.png` | Your full logo lockup, used as the hero headline | ~250KB |
+| `mark.png` | The F mark, used small in the navigation bar | ~25KB |
+| `favicon.png` / `favicon.ico` | Browser tab icons | ~26KB |
+| `apple-touch-icon.png` | Icon when someone saves the site to an iPhone home screen | ~11KB |
+| `leaf-hang.png` / `leaf-rise.png` | Foliage bands cut from your logo artwork, framing several sections | ~280KB |
 
 Later you'll add one more: `cate.jpg`, your portrait.
 
-All the images were generated from the logo and favicon you supplied, trimmed
-of their white margins and compressed for the web. The originals are untouched.
+All the images were generated from the logo and favicon you supplied — trimmed
+of their white margins, cut out with transparent backgrounds where needed, and
+compressed for the web. Your originals are untouched.
 
 There are two routes below. **Route A (Git) is the one to use** — it takes ten
 minutes to set up once and then every future change is a one-line push that
@@ -25,32 +26,29 @@ deploys itself. Route B is a fallback if you'd rather not touch Git at all.
 
 ---
 
-## Before you start — five things to edit
+## Before you start — three things to edit
 
-Open `index.html` in any plain-text editor (VS Code, Notepad++, TextEdit in
-plain-text mode — **not** Word, which will mangle it). Search for `EDIT ME` and
-you'll find five marked spots:
+Your LinkedIn URL and the three testimonials are already in. Open `index.html`
+in any plain-text editor (VS Code, Notepad++, TextEdit in plain-text mode —
+**not** Word, which will mangle it). Search for `EDIT ME` and you'll find three
+marked spots:
 
 | # | What | Where |
 |---|------|-------|
 | 1 | Your real domain, in the `canonical`, `og:url` and `og:image` tags | Near the top, in `<head>` |
 | 2 | Your email address — appears in **4** `mailto:` links | Nav button, CTA button, footer |
 | 3 | Your portrait photo | The "A bit about me" section |
-| 4 | The three testimonial quotes | The dark "What people say" section |
-| 5 | Your LinkedIn profile URL — appears **twice** | CTA button and footer |
 
-The fastest way to do 2 and 5 is find-and-replace across the whole file:
+The fastest way to do 1 and 2 is find-and-replace across the whole file:
 
 - Replace `hello@flourishorflounder.co.uk` → your real address
-- Replace `YOUR-LINKEDIN-HANDLE` → your LinkedIn handle (the bit after
-  `linkedin.com/in/` in your profile URL)
 - Replace `flourishorflounder.co.uk` → your real domain
 
 ### Adding your photo
 
 1. Save the photo as `cate.jpg` in the same folder as `index.html`.
    Portrait orientation, roughly 800 × 1000 pixels, under ~300KB.
-2. In `index.html`, find `EDIT ME (3/5)`.
+2. In `index.html`, find `EDIT ME (3/3)`.
 3. Delete the whole `<div class="portrait-placeholder"> ... </div>` block.
 4. Uncomment the line above it by removing `<!--` and `-->`:
    ```html
@@ -69,7 +67,7 @@ in your browser exactly as it will appear live.
 ### Step 1: Put the files in a Git repository
 
 Create a new **private** repository on GitHub (or GitLab) called something like
-`flourish-or-flounder`. Then, in a terminal, from the folder containing the
+`flourishorflounder`. Then, in a terminal, from the folder containing the
 site files:
 
 ```bash
@@ -77,7 +75,7 @@ git init
 git add .
 git commit -m "Initial site"
 git branch -M main
-git remote add origin https://github.com/YOUR-USERNAME/flourish-or-flounder.git
+git remote add origin https://github.com/roger296/flourishorflounder.git
 git push -u origin main
 ```
 
@@ -213,6 +211,13 @@ Three things to check, in order:
    over port 80 even though the site serves on 443. On Ubuntu:
    `sudo ufw allow 80 && sudo ufw allow 443`.
 
+**Moving a leaf band exposes a straight cut line**
+Each foliage strip was cut out of the logo artwork, so one horizontal edge is a
+straight cut. The CSS deliberately parks that edge outside the section using the
+`--leaf-bleed` value. `leaf-hang.png` must hang from a section's **top** edge and
+`leaf-rise.png` must rise from its **bottom** edge — swap them, or reduce the
+bleed too far, and the cut shows.
+
 **The logo has a visible white box around it**
 The logo files have a white background baked in, and the site uses CSS
 `mix-blend-mode: multiply` to drop it out over the tinted sections. Every
@@ -237,7 +242,7 @@ Hard-refresh your browser: `Ctrl + Shift + R` (Windows) or `Cmd + Shift + R`
 
 - **No dependencies.** Nothing to patch, nothing to keep updated, no plugins
   that break. It will still work identically in five years.
-- **It's fast.** Around 280KB in total including the logo — it will score well
+- **It's fast.** Around 620KB in total including the logo and leaf artwork — it will score well
   on PageSpeed and load quickly on mobile.
 - **Accessibility.** Semantic headings, a skip link, visible keyboard focus
   states, AA-contrast text, and `prefers-reduced-motion` support for anyone who
