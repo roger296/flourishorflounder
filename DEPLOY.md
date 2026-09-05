@@ -13,6 +13,7 @@ database. That makes this about as simple as web hosting gets.
 | `favicon.png` / `favicon.ico` | Browser tab icons | ~26KB |
 | `apple-touch-icon.png` | Icon when someone saves the site to an iPhone home screen | ~11KB |
 | `leaf-hang.png` / `leaf-rise.png` | Foliage bands cut from your logo artwork, framing several sections | ~280KB |
+| `og-image.png` | 1200×630 preview card shown when the link is shared on LinkedIn | ~215KB |
 
 Later you'll add one more: `cate.jpg`, your portrait.
 
@@ -26,29 +27,33 @@ deploys itself. Route B is a fallback if you'd rather not touch Git at all.
 
 ---
 
-## Before you start — three things to edit
+## Before you start — four things to edit
 
 Your LinkedIn URL and the three testimonials are already in. Open `index.html`
 in any plain-text editor (VS Code, Notepad++, TextEdit in plain-text mode —
-**not** Word, which will mangle it). Search for `EDIT ME` and you'll find three
+**not** Word, which will mangle it). Search for `EDIT ME` and you'll find four
 marked spots:
 
 | # | What | Where |
 |---|------|-------|
 | 1 | Your real domain, in the `canonical`, `og:url` and `og:image` tags | Near the top, in `<head>` |
 | 2 | Your email address — appears in **4** `mailto:` links | Nav button, CTA button, footer |
-| 3 | Your portrait photo | The "A bit about me" section |
+| 3 | The turnover range (currently £2m–£20m) | The hero, under the intro line |
+| 4 | Your typical time commitment and how you charge | The "How we work together" section |
 
 The fastest way to do 1 and 2 is find-and-replace across the whole file:
 
 - Replace `hello@flourishorflounder.co.uk` → your real address
 - Replace `flourishorflounder.co.uk` → your real domain
 
+The portrait is a fifth job but isn't marked `EDIT ME` — see "Adding your
+photo" below.
+
 ### Adding your photo
 
 1. Save the photo as `cate.jpg` in the same folder as `index.html`.
    Portrait orientation, roughly 800 × 1000 pixels, under ~300KB.
-2. In `index.html`, find `EDIT ME (3/3)`.
+2. In `index.html`, find the block commented `PORTRAIT`.
 3. Delete the whole `<div class="portrait-placeholder"> ... </div>` block.
 4. Uncomment the line above it by removing `<!--` and `-->`:
    ```html
@@ -211,6 +216,17 @@ Three things to check, in order:
    over port 80 even though the site serves on 443. On Ubuntu:
    `sudo ufw allow 80 && sudo ufw allow 443`.
 
+**The tab icon doesn't show when you open the file locally**
+It should now. The icon paths are relative (`favicon.ico`, not `/favicon.ico`)
+precisely so local preview works. If you ever change them to start with `/`,
+they'll work on the server but never when you double-click the file.
+
+**Images are missing when you open the page**
+Check you've opened `index.html` from the main folder, not a copy sitting on its
+own somewhere. The page needs the PNG files beside it. For reviewing without
+that worry, use `REVIEW-flourish-or-flounder.html`, which has every image built
+into the file.
+
 **Moving a leaf band exposes a straight cut line**
 Each foliage strip was cut out of the logo artwork, so one horizontal edge is a
 straight cut. The CSS deliberately parks that edge outside the section using the
@@ -242,7 +258,7 @@ Hard-refresh your browser: `Ctrl + Shift + R` (Windows) or `Cmd + Shift + R`
 
 - **No dependencies.** Nothing to patch, nothing to keep updated, no plugins
   that break. It will still work identically in five years.
-- **It's fast.** Around 620KB in total including the logo and leaf artwork — it will score well
+- **It's fast.** Around 830KB in total including the logo, leaf artwork and share card — it will score well
   on PageSpeed and load quickly on mobile.
 - **Accessibility.** Semantic headings, a skip link, visible keyboard focus
   states, AA-contrast text, and `prefers-reduced-motion` support for anyone who
