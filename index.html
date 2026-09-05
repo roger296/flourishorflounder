@@ -221,15 +221,51 @@ h1,h2,h3{
   .btn--lg{font-size:1.06rem;padding:.95rem 1.7rem}
 }
 
-/* =============================================== HAND-DRAWN MARKS */
+/* =============================================== OFFSET ECHO
+   A stroked duplicate of a box, nudged down and right, as though someone
+   traced round it by hand. Built from two stacked box-shadows rather than
+   a pseudo-element: the first shadow paints the section's own background
+   slightly inset over the second, leaving a hairline outline. That keeps
+   it working inside rotated and clipped elements, where a z-index:-1
+   pseudo-element would not.
+   Sections set --echo-bg to their own ground colour. */
+.echo{
+  box-shadow:
+    var(--echo-d,9px) var(--echo-d,9px) 0 -2.5px var(--echo-bg,#fff),
+    var(--echo-d,9px) var(--echo-d,9px) 0 0    var(--echo-c,var(--pink));
+  transition:box-shadow .28s cubic-bezier(.2,.7,.3,1), transform .28s cubic-bezier(.2,.7,.3,1);
+}
+/* on hover the box settles into its own outline */
+.echo:hover{--echo-d:4px}
+.echo--green{--echo-c:var(--green)}
+.echo--light{--echo-c:var(--pink-light)}
+.section--sand{--echo-bg:var(--sand)}
+.section--ink{--echo-bg:var(--ink)}
+@media (prefers-reduced-motion:reduce){.echo{transition:none}}
+
+/* =============================================== HAND-DRAWN MARKS
+   Two wobbling strokes rather than one, the way someone underlines a
+   word twice for emphasis. */
 .mark{
   background-repeat:no-repeat;
-  background-position:left calc(100% + 2px);
-  background-size:100% .34em;
-  padding-bottom:.1em;
+  background-position:left calc(100% + 3px);
+  background-size:100% .5em;
+  padding-bottom:.16em;
 }
-.mark--pink{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 14' preserveAspectRatio='none'%3E%3Cpath d='M3 9C40 3 68 12 104 7s65-6 93 1' stroke='%23EF1569' stroke-width='4.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");}
-.mark--green{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 14' preserveAspectRatio='none'%3E%3Cpath d='M3 9C40 3 68 12 104 7s65-6 93 1' stroke='%2344732D' stroke-width='4.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");}
+.mark--pink{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 20' preserveAspectRatio='none'%3E%3Cg stroke='%23EF1569' stroke-width='3.4' fill='none' stroke-linecap='round'%3E%3Cpath d='M4 7C42 2 70 11 106 6s62-6 90 1'/%3E%3Cpath d='M7 15C45 10 73 18 109 13s58-5 84 2'/%3E%3C/g%3E%3C/svg%3E");}
+.mark--green{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 20' preserveAspectRatio='none'%3E%3Cg stroke='%2344732D' stroke-width='3.4' fill='none' stroke-linecap='round'%3E%3Cpath d='M4 7C42 2 70 11 106 6s62-6 90 1'/%3E%3Cpath d='M7 15C45 10 73 18 109 13s58-5 84 2'/%3E%3C/g%3E%3C/svg%3E");}
+
+/* looping hand-drawn arrows, used sparingly to point at the two CTAs */
+.doodle{color:var(--pink);flex:none;overflow:visible}
+.doodle--up{transform:rotate(180deg)}
+
+/* small line icons on the cards and the ways of working */
+.icon{
+  width:30px;height:30px;flex:none;margin-bottom:.9rem;
+  color:var(--pink);stroke:currentColor;fill:none;
+  stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;
+}
+.icon--green{color:var(--green)}
 .ring{position:relative;display:inline-block;padding:0 .18em}
 .ring::after{
   content:"";position:absolute;inset:-.32em -.5em -.28em -.5em;
@@ -334,6 +370,7 @@ h2.section__title em{font-style:italic;font-weight:400;color:var(--pink-deep)}
   background:var(--white);
   border:2px solid var(--line-soft);
   border-left:6px solid var(--pink);
+  --echo-d:7px;
   border-radius:var(--radius);
   padding:1.35rem 1.5rem;
   display:grid;grid-template-columns:clamp(5rem,7vw,6.4rem) 1fr;
@@ -380,11 +417,7 @@ h2.section__title em{font-style:italic;font-weight:400;color:var(--pink-deep)}
 }
 .keypoint:nth-child(odd){transform:rotate(-.7deg)}
 .keypoint:nth-child(even){transform:rotate(.7deg)}
-.keypoint:hover{
-  transform:rotate(0deg) translateY(-3px);
-  border-color:var(--green);
-  box-shadow:0 16px 38px -22px rgba(45,92,38,.55);
-}
+.keypoint:hover{transform:rotate(0deg) translate(3px,3px);border-color:var(--green)}
 @media (prefers-reduced-motion:reduce){.keypoint,.keypoint:hover{transform:none;transition:none}}
 .keypoint .tick{
   width:30px;height:30px;border-radius:50%;background:var(--green-deep);
@@ -402,12 +435,8 @@ h2.section__title em{font-style:italic;font-weight:400;color:var(--pink-deep)}
   padding:clamp(1.6rem,2.2vw,1.9rem);
   transition:transform .3s cubic-bezier(.2,.7,.3,1), box-shadow .3s ease, border-color .3s ease;
 }
-.card:hover{
-  transform:translateY(-4px) rotate(-.5deg);
-  border-color:var(--pink-wash);
-  box-shadow:0 18px 44px -24px rgba(22,20,26,.4);
-}
-.card:nth-child(even):hover{transform:translateY(-4px) rotate(.5deg)}
+.card:hover{transform:translate(4px,4px);border-color:var(--line)}
+.card:nth-child(even){--echo-c:var(--green)}
 @media (prefers-reduced-motion:reduce){.card,.card:hover{transition:none;transform:none}}
 .card__n{
   position:absolute;top:-.06em;right:.1em;
@@ -422,10 +451,14 @@ h2.section__title em{font-style:italic;font-weight:400;color:var(--pink-deep)}
 .ways{display:grid;gap:1.15rem;grid-template-columns:1fr;margin-top:clamp(2rem,3.5vw,2.75rem)}
 @media (min-width:800px){.ways{grid-template-columns:repeat(3,minmax(0,1fr))}}
 .way{
-  border-top:4px solid var(--pink);
-  padding-top:1.25rem;
+  background:var(--white);
+  border:2px solid var(--line-soft);
+  border-top:5px solid var(--pink);
+  border-radius:var(--radius);
+  padding:1.5rem 1.6rem;
 }
-.way:nth-child(2){border-top-color:var(--green)}
+.way:nth-child(2){border-top-color:var(--green);--echo-c:var(--green)}
+.way:hover{transform:translate(4px,4px)}
 .way h3{
   font-family:var(--font-chunk);font-weight:600;
   font-size:1rem;letter-spacing:.09em;text-transform:uppercase;
@@ -443,7 +476,7 @@ h2.section__title em{font-style:italic;font-weight:400;color:var(--pink-deep)}
   position:relative;border-radius:var(--radius);overflow:hidden;
   background:var(--sand);aspect-ratio:4/5;
   transform:rotate(-1.75deg);
-  box-shadow:0 22px 60px -30px rgba(22,20,26,.45);
+  --echo-d:14px;
 }
 @media (prefers-reduced-motion:reduce){.about__portrait{transform:none}}
 .about__portrait img{width:100%;height:100%;object-fit:cover}
@@ -492,7 +525,7 @@ h2.section__title em{font-style:italic;font-weight:400;color:var(--pink-deep)}
 }
 .quote:nth-child(odd){transform:rotate(-.7deg)}
 .quote:nth-child(even){transform:rotate(.7deg)}
-.quote:hover{transform:rotate(0deg) translateY(-3px)}
+.quote:hover{transform:rotate(0deg) translate(3px,3px)}
 @media (prefers-reduced-motion:reduce){.quote,.quote:hover{transform:none;transition:none}}
 .quote__mark{
   font-family:var(--font-display);font-size:3rem;line-height:.6;
@@ -516,6 +549,9 @@ h2.section__title em{font-style:italic;font-weight:400;color:var(--pink-deep)}
 .cta h2 em{font-style:italic;color:var(--pink-deep)}
 .cta p{max-width:44ch;margin:0 auto 2.4rem;color:var(--ink-soft);font-size:clamp(1.05rem,.4vw + 1rem,1.18rem)}
 .cta__row{display:flex;flex-wrap:wrap;gap:.9rem;justify-content:center}
+.cta__doodle{margin:-.75rem auto .3rem;transform:translateX(-92px) rotate(-10deg)}
+@media (max-width:760px){.cta__doodle{transform:translateX(-58px) rotate(-10deg)}}
+@media (max-width:600px){.cta__doodle{width:40px;height:68px;transform:translateX(-46px) rotate(-10deg)}}
 
 /* =============================================== FOOTER */
 .footer{background:var(--ink);color:rgba(255,255,255,.6);padding-block:clamp(3rem,6vw,4.5rem);font-size:.88rem}
@@ -611,9 +647,11 @@ h2.section__title em{font-style:italic;font-weight:400;color:var(--pink-deep)}
           </div>
 
           <p class="hero__nudge">
-            <svg class="scrawl" width="34" height="24" viewBox="0 0 34 24" fill="none" aria-hidden="true">
-              <path d="M32 20C24 21 12 18 6 9" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-              <path d="M4 3c.6 3 1.2 5 1.8 6.3M11 9.6c-2.4.6-4.2.5-5.2-.3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            <svg class="doodle doodle--up" width="30" height="52" viewBox="0 0 70 120"
+                 fill="none" stroke="currentColor" stroke-width="4"
+                 stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M14 6c16 5 27 15 25 26-2 10-17 13-21 4-4-9 8-16 18-13 16 5 21 24 14 43-4 11-12 22-20 31"/>
+              <path d="M20 91c4 8 8 14 10 19M42 99c-6 5-12 8-12 11"/>
             </svg>
             it's just a conversation
           </p>
@@ -621,21 +659,21 @@ h2.section__title em{font-style:italic;font-weight:400;color:var(--pink-deep)}
 
         <!-- Proof, not decoration: each line is claimed in a testimonial below -->
         <div class="results reveal">
-          <div class="result">
+          <div class="result echo">
             <span class="result__n" aria-hidden="true">50%</span>
             <div>
               <p class="result__t">Cost of capital, halved</p>
               <p class="result__s">Bank partnerships renegotiated, so the business could keep scaling — Santi, Co-Founder</p>
             </div>
           </div>
-          <div class="result">
+          <div class="result echo">
             <span class="result__n" aria-hidden="true">0</span>
             <div>
               <p class="result__t">Finance Directors needed</p>
               <p class="result__s">Team recruited and mentored until they could run it themselves — Lorna, Founder</p>
             </div>
           </div>
-          <div class="result">
+          <div class="result echo">
             <span class="result__n" aria-hidden="true">200%</span>
             <div>
               <p class="result__t">Growth, with the weak lines cut</p>
@@ -687,23 +725,27 @@ h2.section__title em{font-style:italic;font-weight:400;color:var(--pink-deep)}
       </div>
 
       <div class="cards reveal">
-        <article class="card">
+        <article class="card echo">
           <span class="card__n" aria-hidden="true">01</span>
+          <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 16.5c2.6 0 3.6-4.2 6-6.5s5.4 2.2 7.5 0S20 5.4 21 4.8"/><path d="M21 4.8 16.5 4.6M21 4.8l-.4 4.5"/></svg>
           <h3>Cash flow clarity</h3>
           <p>Where the money actually goes, which channels earn their keep, and what your numbers are telling you before your bank balance does.</p>
         </article>
-        <article class="card">
+        <article class="card echo">
           <span class="card__n" aria-hidden="true">02</span>
+          <svg class="icon icon--green" viewBox="0 0 24 24" aria-hidden="true"><path d="M13 3.5H5.6A1.6 1.6 0 0 0 4 5.1v13.8a1.6 1.6 0 0 0 1.6 1.6H13"/><path d="M16.8 8.4 20.5 12l-3.7 3.6M20 12H9.4"/></svg>
           <h3>Exit readiness</h3>
           <p>Getting a founder-led business into the shape a buyer or investor expects — long before you start the conversation.</p>
         </article>
-        <article class="card">
+        <article class="card echo">
           <span class="card__n" aria-hidden="true">03</span>
+          <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 9.2h9.8L10 5.8M20.5 14.8h-9.8l3.3 3.4"/></svg>
           <h3>Funding &amp; deals</h3>
           <p>Debt and equity raises, acquisitions and disposals, due diligence — negotiated from both sides of the table.</p>
         </article>
-        <article class="card">
+        <article class="card echo">
           <span class="card__n" aria-hidden="true">04</span>
+          <svg class="icon icon--green" viewBox="0 0 24 24" aria-hidden="true"><ellipse cx="12" cy="14.5" rx="8.4" ry="4.3"/><circle cx="12" cy="5.2" r="2.1"/><circle cx="4.4" cy="9.6" r="1.7"/><circle cx="19.6" cy="9.6" r="1.7"/></svg>
           <h3>Board &amp; governance</h3>
           <p>Non-executive and board advisory roles, plus mentoring for founders and finance teams.</p>
         </article>
@@ -725,25 +767,25 @@ h2.section__title em{font-style:italic;font-weight:400;color:var(--pink-deep)}
 
         <div class="split__body reveal">
           <ul class="keypoints">
-            <li class="keypoint">
+            <li class="keypoint echo echo--green">
               <span class="tick" aria-hidden="true">
                 <svg viewBox="0 0 14 14" fill="none"><path d="M2 7.4 5.3 10.6 12 3.4" stroke="#FFFFFF" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
               </span>
               <span>Revenue's growing but cash always feels tighter than it should.</span>
             </li>
-            <li class="keypoint">
+            <li class="keypoint echo echo--green">
               <span class="tick" aria-hidden="true">
                 <svg viewBox="0 0 14 14" fill="none"><path d="M2 7.4 5.3 10.6 12 3.4" stroke="#FFFFFF" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
               </span>
               <span>You've never had anyone explain your numbers in a way that <span class="mark mark--green">actually made sense</span>.</span>
             </li>
-            <li class="keypoint">
+            <li class="keypoint echo echo--green">
               <span class="tick" aria-hidden="true">
                 <svg viewBox="0 0 14 14" fill="none"><path d="M2 7.4 5.3 10.6 12 3.4" stroke="#FFFFFF" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
               </span>
               <span>You're managing multiple sales channels and honestly aren't sure which ones are making you money.</span>
             </li>
-            <li class="keypoint">
+            <li class="keypoint echo echo--green">
               <span class="tick" aria-hidden="true">
                 <svg viewBox="0 0 14 14" fill="none"><path d="M2 7.4 5.3 10.6 12 3.4" stroke="#FFFFFF" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
               </span>
@@ -764,15 +806,18 @@ h2.section__title em{font-style:italic;font-weight:400;color:var(--pink-deep)}
       <h2 class="section__title">Three ways in, depending on <em>what you need.</em></h2>
 
       <div class="ways reveal">
-        <div class="way">
+        <div class="way echo">
+          <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4.5 19.5v-4.8M9.8 19.5V9.4M15.2 19.5v-7.9M20.5 19.5V5.2"/></svg>
           <h3>Fractional CFO</h3>
           <p>Ongoing, in the business. I own the numbers alongside you — cash flow, reporting, the finance team — without you carrying a full-time CFO salary.</p>
         </div>
-        <div class="way">
+        <div class="way echo">
+          <svg class="icon icon--green" viewBox="0 0 24 24" aria-hidden="true"><path d="M19.9 5.4H4.1A1.6 1.6 0 0 0 2.5 7v7.9a1.6 1.6 0 0 0 1.6 1.6H7v4l4.4-4h8.5a1.6 1.6 0 0 0 1.6-1.6V7a1.6 1.6 0 0 0-1.6-1.6Z"/></svg>
           <h3>Board Advisor or NED</h3>
           <p>A seat at the table. Governance, challenge and a second experienced head in the room for the decisions that actually move the needle.</p>
         </div>
-        <div class="way">
+        <div class="way echo">
+          <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5.6 21V3.2M5.6 4.4h12.2l-2.6 4.1 2.6 4.1H5.6"/></svg>
           <h3>A defined project</h3>
           <p>One thing, done properly. A funding round, a sale, due diligence, or rebuilding the reporting so you can finally see what's going on.</p>
         </div>
@@ -864,7 +909,7 @@ h2.section__title em{font-style:italic;font-weight:400;color:var(--pink-deep)}
     <div class="container">
       <div class="split">
         <div class="reveal">
-          <figure class="about__portrait" style="margin:0">
+          <figure class="about__portrait echo" style="margin:0">
             <!-- ============================================================
                  PORTRAIT
                  When you have a photo, save it next to this file as
@@ -962,19 +1007,19 @@ h2.section__title em{font-style:italic;font-weight:400;color:var(--pink-deep)}
       <h2 class="section__title">In their <em>own words.</em></h2>
 
       <div class="quotes reveal">
-        <blockquote class="quote">
+        <blockquote class="quote echo echo--light">
           <span class="quote__mark" aria-hidden="true">&ldquo;</span>
           <p>Very commercial, comfortable in both the detail and offering strategic output. An amazing human being who gives everything for the cause and genuinely cares.</p>
           <footer><b>Danny</b>CEO &middot; £20m DTC brand</footer>
         </blockquote>
 
-        <blockquote class="quote">
+        <blockquote class="quote echo echo--light">
           <span class="quote__mark" aria-hidden="true">&ldquo;</span>
           <p>Instrumental in reorganising our business units. Recruited and mentored our Finance Team&hellip; we are able to operate without the need for an FD as our team have been developed so that they can take on the mantle.</p>
           <footer><b>Lorna</b>Founder &middot; £13m field marketing brand for retailers</footer>
         </blockquote>
 
-        <blockquote class="quote quote--wide">
+        <blockquote class="quote quote--wide echo echo--light">
           <span class="quote__mark" aria-hidden="true">&ldquo;</span>
           <p>Not afraid to roll up her sleeves and do the repetitive work of a six-figure startup. Always worked both on the business and in the business. As a very analytical CEO, my expectations were high, but her delivery was not shy of superb.</p>
           <p>She developed custom databases that outputted margin, refund, costs and profit figures on a market, product, category or region basis and any combination of the aforementioned. This allowed us to kill less valuable product lines, and focus on our Pareto&rsquo;s and achieve exponential growth. Her great relationship with banks forged great partnerships that lowered our cost of capital by half and allowed us to keep scaling quickly.</p>
@@ -998,6 +1043,13 @@ h2.section__title em{font-style:italic;font-weight:400;color:var(--pink-deep)}
         a good enough reason to get in touch. No pitch, no 40-page report. Just a
         conversation.
       </p>
+      <svg class="doodle cta__doodle" width="58" height="98" viewBox="0 0 70 120"
+           fill="none" stroke="currentColor" stroke-width="4"
+           stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M14 6c16 5 27 15 25 26-2 10-17 13-21 4-4-9 8-16 18-13 16 5 21 24 14 43-4 11-12 22-20 31"/>
+        <path d="M20 91c4 8 8 14 10 19M42 99c-6 5-12 8-12 11"/>
+      </svg>
+
       <div class="cta__row">
         <!-- EDIT ME (2/4 cont.): email address -->
         <a class="btn btn--primary btn--lg" href="mailto:hello@flourishorflounder.co.uk?subject=Enquiry%20via%20website">
