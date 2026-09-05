@@ -14,12 +14,12 @@ database. That makes this about as simple as web hosting gets.
 | `apple-touch-icon.png` | Icon when someone saves the site to an iPhone home screen | ~11KB |
 | `leaf-hang.png` / `leaf-rise.png` | Foliage bands cut from your logo artwork, framing several sections | ~280KB |
 | `og-image.png` | 1200×630 preview card shown when the link is shared on LinkedIn | ~215KB |
+| `cate.jpg` | Your portrait, in the "A bit about me" section | ~170KB |
 
-Later you'll add one more: `cate.jpg`, your portrait.
-
-All the images were generated from the logo and favicon you supplied — trimmed
-of their white margins, cut out with transparent backgrounds where needed, and
-compressed for the web. Your originals are untouched.
+The logo, mark, icons and foliage were all generated from the logo and favicon
+you supplied — trimmed of their white margins, cut out with transparent
+backgrounds where needed, and compressed for the web. `cate.jpg` was cropped to
+4:5 and compressed from the photo you sent. Your originals are untouched.
 
 There are two routes below. **Route A (Git) is the one to use** — it takes ten
 minutes to set up once and then every future change is a one-line push that
@@ -46,21 +46,11 @@ The fastest way to do 1 and 2 is find-and-replace across the whole file:
 - Replace `hello@flourishorflounder.co.uk` → your real address
 - Replace `flourishorflounder.co.uk` → your real domain
 
-The portrait is a fifth job but isn't marked `EDIT ME` — see "Adding your
-photo" below.
+### Changing the photo later
 
-### Adding your photo
-
-1. Save the photo as `cate.jpg` in the same folder as `index.html`.
-   Portrait orientation, roughly 800 × 1000 pixels, under ~300KB.
-2. In `index.html`, find the block commented `PORTRAIT`.
-3. Delete the whole `<div class="portrait-placeholder"> ... </div>` block.
-4. Uncomment the line above it by removing `<!--` and `-->`:
-   ```html
-   <img src="cate.jpg" alt="Cate Hulme, Fractional CFO">
-   ```
-
-Until you do that, the site shows a neat marked placeholder — it won't look broken.
+Replace `cate.jpg` with another portrait-orientation image using the same
+filename. A 4:5 ratio fits the frame exactly (900 × 1125 works well); anything
+else gets cropped to fit from the centre.
 
 **To check your edits before deploying:** double-click `index.html` and it opens
 in your browser exactly as it will appear live.
@@ -258,7 +248,7 @@ Hard-refresh your browser: `Ctrl + Shift + R` (Windows) or `Cmd + Shift + R`
 
 - **No dependencies.** Nothing to patch, nothing to keep updated, no plugins
   that break. It will still work identically in five years.
-- **It's fast.** Around 830KB in total including the logo, leaf artwork and share card — it will score well
+- **It's fast.** Around 1MB in total including the logo, leaf artwork, share card and portrait — it will score well
   on PageSpeed and load quickly on mobile.
 - **Accessibility.** Semantic headings, a skip link, visible keyboard focus
   states, AA-contrast text, and `prefers-reduced-motion` support for anyone who
